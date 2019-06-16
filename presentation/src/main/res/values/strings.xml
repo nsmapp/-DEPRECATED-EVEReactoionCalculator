@@ -15,7 +15,7 @@
     <string name="reaction_tax_not_correct">\"Reaction tax\" field is not correct</string>
     <string name="about">About</string>
     <string name="ingame_alisa_red_alert">ingame: Alisa Red alert</string>
-    <string name="github_http">github: http</string>
+    <string name="github_http">github: /nsmapp/EVEReactoionCalculator</string>
     <string name="eve_reaction_calculator_application">EVE Reaction Calculator - application for calculating reactions in the game EVE Online</string>
     <string name="email">email: nsmappinfo@gmail.com</string>
     <string name="runs">Runs:</string>
