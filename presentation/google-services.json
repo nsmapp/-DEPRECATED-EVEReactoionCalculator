@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "71249246462",
+    "firebase_url": "https://eve-reaction-calculator.firebaseio.com",
+    "project_id": "eve-reaction-calculator",
+    "storage_bucket": "eve-reaction-calculator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71249246462:android:6cb3f62209144791",
+        "android_client_info": {
+          "package_name": "by.nepravsky.sm.evereactioncalculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71249246462-vtfmsk2nfsvm62v2ri83ivcsq4ji82e8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJaTbYDXeQxeo0_huZaSdDFGKiQ96Cec0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71249246462-vtfmsk2nfsvm62v2ri83ivcsq4ji82e8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

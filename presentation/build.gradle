@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    defaultConfig {
+        applicationId "by.nepravsky.sm.evereactioncalculator"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    //modules
+    implementation project(path: ':data')
+
+    //androidX
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
+
+    //picasso
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+    //Rx
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    //room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    //dagger
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+
+    //googlefb
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+
+}
