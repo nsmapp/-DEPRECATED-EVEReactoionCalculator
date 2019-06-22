@@ -13,8 +13,6 @@ public interface MaterialDAO {
 
     String TABLE_NAME = "items";
 
-
-
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE id IN (:idList)")
     Flowable<List<MaterialDBE>> getMaterialList(List<String> idList);
 

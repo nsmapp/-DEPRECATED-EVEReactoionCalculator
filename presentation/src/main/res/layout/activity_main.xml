@@ -14,27 +14,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_white"
         tools:context=".screens.main.MainActivity">
 
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
 
         <AutoCompleteTextView
             android:id="@+id/reaction"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:hint="@string/reaction"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:maxLines="1"
+            android:maxLines="3"
+            android:selectAllOnFocus="true"
             android:text="@={viewModel.reaction}"
             app:layout_constraintEnd_toStartOf="@+id/search"
             app:layout_constraintStart_toEndOf="@+id/menu"
@@ -42,19 +37,19 @@
 
         <ImageView
             android:id="@+id/menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:onClick="@{(v) -> viewModel.showSettings()}"
             app:layout_constraintBottom_toBottomOf="@+id/reaction"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/reaction"
-            app:srcCompat="@android:drawable/ic_menu_preferences" />
+            app:srcCompat="@drawable/icon_menu" />
 
         <ImageView
             android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="true"
@@ -62,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/reaction"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/reaction"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            app:srcCompat="@drawable/icon_enter" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -72,6 +67,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:visibility="@{viewModel.isVisableSettings}"
+            android:background="@drawable/border_black_corner0000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reaction">
@@ -82,7 +78,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:dropDownSelector="@android:drawable/arrow_down_float"
                 android:entries="@{viewModel.systemList}"
+                android:padding="6dp"
                 android:selectedItemPosition="@={viewModel.spinnerId}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -93,13 +91,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:ems="1"
-                android:gravity="right"
+                android:gravity="center"
                 android:inputType="number"
                 android:maxLength="3"
-                android:maxLines="1"
+                android:paddingBottom="8dp"
                 android:text="@={viewModel.runs}"
                 android:textSize="14sp"
+                android:selectAllOnFocus="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eReactionTax" />
@@ -141,10 +139,12 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
-                android:gravity="right"
+                android:gravity="center"
                 android:inputType="numberDecimal"
+                android:paddingRight="8dp"
                 android:text="@={viewModel.brokersFee}"
                 android:textSize="14sp"
+                android:selectAllOnFocus="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/systems" />
 
@@ -154,10 +154,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
-                android:gravity="right"
+                android:gravity="center"
                 android:inputType="numberDecimal"
+                android:paddingRight="8dp"
                 android:text="@={viewModel.salesTax}"
                 android:textSize="14sp"
+                android:selectAllOnFocus="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eBrokersFee" />
 
@@ -187,10 +189,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:ems="10"
-                android:gravity="right"
+                android:gravity="center"
                 android:inputType="numberDecimal"
+                android:paddingBottom="8dp"
                 android:text="@={viewModel.reactionTax}"
                 android:textSize="14sp"
+                android:selectAllOnFocus="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eSalesTax" />
 
@@ -204,7 +208,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:adapter="@{viewModel.adapter}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -234,63 +237,56 @@
             android:translationY="-2dp"
             android:visibility="@{viewModel.isVisableInformation}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reactionInformation">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
 
             <TextView
                 android:id="@+id/reactionTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/reaction_time"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/materialBuy" />
 
             <TextView
                 android:id="@+id/eReactionTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
                 android:text="@={viewModel.reactionTime}"
                 app:layout_constraintBottom_toBottomOf="@+id/reactionTime"
-                app:layout_constraintStart_toEndOf="@+id/reactionTime"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/reactionTime" />
 
             <TextView
                 android:id="@+id/eMaterialBuy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:text="@={viewModel.materialBuy}"
                 app:layout_constraintBottom_toBottomOf="@+id/materialBuy"
-                app:layout_constraintStart_toEndOf="@+id/materialBuy"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/materialBuy" />
 
             <TextView
                 android:id="@+id/eMaterialSell"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:text="@={viewModel.materialSell}"
                 app:layout_constraintBottom_toBottomOf="@+id/materialsell"
-                app:layout_constraintStart_toEndOf="@+id/materialsell"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/materialsell" />
 
             <TextView
                 android:id="@+id/materialBuy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
                 android:text="@string/buy_spase"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/materialsell" />
 
@@ -298,7 +294,7 @@
                 android:id="@+id/materialsell"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/sell_spase"
                 app:layout_constraintStart_toStartOf="parent"
@@ -308,27 +304,31 @@
                 android:id="@+id/materialVol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
                 android:text="@string/volume_of_material"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reactionTime" />
 
             <TextView
                 android:id="@+id/eMaterialVol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
                 android:text="@={viewModel.materialVol}"
-                app:layout_constraintStart_toStartOf="@+id/guideline3"
-                app:layout_constraintTop_toBottomOf="@+id/materialVol" />
+                app:layout_constraintBottom_toBottomOf="@+id/materialVol"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/materialVol" />
 
             <TextView
                 android:id="@+id/materialPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:text="@string/cost_of_reaction"
+                android:text="@string/cost_of_material"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -342,6 +342,7 @@
             android:background="@drawable/border_green_corrner1100_padding"
             android:button="@drawable/reaction_info"
             android:onClick="@{(v)-> viewModel.showReactionInfo()}"
+            android:padding="6dp"
             android:text="@string/reaction_information"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />

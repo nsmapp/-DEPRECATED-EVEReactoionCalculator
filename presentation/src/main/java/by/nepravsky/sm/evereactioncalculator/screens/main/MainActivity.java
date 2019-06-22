@@ -54,14 +54,7 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel,
 
         binding.productList.setLayoutManager(new LinearLayoutManager(this));
         binding.reaction.setOnEditorActionListener(doneEvent);
-//        binding.search.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                viewModel.searchOnClick();
-//                binding.reaction.clearFocus();
-//                binding.reaction.requestFocus();
-//            }
-//        });
+
 
     }
 

@@ -2,6 +2,7 @@ package by.nepravsky.sm.evereactioncalculator.screens.main;
 
 import android.content.res.Resources;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import androidx.databinding.ObservableArrayList;
@@ -22,12 +23,11 @@ import by.nepravsky.sm.domain.entity.Tax;
 import by.nepravsky.sm.domain.usecase.composite.ProductCreator;
 import by.nepravsky.sm.evereactioncalculator.R;
 import by.nepravsky.sm.evereactioncalculator.app.App;
-import by.nepravsky.sm.evereactioncalculator.screens.base.activity.BaseRouter;
 import by.nepravsky.sm.evereactioncalculator.screens.base.activity.BaseViewModel;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseClickedModel;
 import by.nepravsky.sm.evereactioncalculator.screens.main.recycler.ReactionsAdapter;
 import by.nepravsky.sm.evereactioncalculator.utils.ErrorMessage;
-import by.nepravsky.sm.evereactioncalculator.utils.NumberValidator;
+import by.nepravsky.sm.domain.utils.NumberValidator;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -142,6 +142,7 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
 
                             disableProgressBar();
                             router.showToast(errorMessage.getErrorMessage(e.toString()));
+                            Log.d("logde", e.toString());
                         }
 
                         @Override

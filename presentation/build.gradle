@@ -8,8 +8,8 @@ android {
         applicationId "by.nepravsky.sm.evereactioncalculator"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2b"
     }
     buildTypes {
         release {
@@ -34,6 +34,7 @@ dependencies {
     //androidX
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     //picasso
     implementation "com.squareup.picasso:picasso:$picassoVersion"
@@ -43,15 +44,12 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
     //Rx
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
     //room
     implementation "androidx.room:room-runtime:$roomVersion"
     //dagger
     implementation "com.google.dagger:dagger:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
-    implementation "com.google.dagger:dagger-android:$daggerVersion"
-    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
 
     //googlefb
     implementation 'com.google.firebase:firebase-core:16.0.9'

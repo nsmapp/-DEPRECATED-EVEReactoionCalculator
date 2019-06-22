@@ -2,36 +2,30 @@ package by.nepravsky.sm.data.database;
 
 
 import android.content.Context;
-import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.sql.SQLException;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import javax.inject.Inject;
-
 import by.nepravsky.sm.data.database.dao.FormulaDAO;
 import by.nepravsky.sm.data.database.dao.MaterialDAO;
-import by.nepravsky.sm.data.database.dao.StoryDAO;
 import by.nepravsky.sm.data.database.entity.FormulaDBE;
 import by.nepravsky.sm.data.database.entity.MaterialDBE;
-import by.nepravsky.sm.data.database.entity.StoryDBE;
 
 @Database(entities = {FormulaDBE.class, MaterialDBE.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "reactions.db";
+    static String dbPath = "";
 
     private static AppDatabase appDatabase;
 
@@ -40,6 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
         if(appDatabase == null){
 
+            dbPath = "data/data/"+ context.getPackageName() + "/databases/";
             copyDatabase(context);
 
             appDatabase = Room.databaseBuilder(context.getApplicationContext(),
@@ -58,9 +53,6 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static Boolean checkDatabase(Context context){
 
-        String dbPath = "data/data/"+ context.getPackageName() + "/databases/";
-
-
         SQLiteDatabase database = null;
         try {
             String path = dbPath + DATABASE_NAME;
@@ -69,15 +61,12 @@ public abstract class AppDatabase extends RoomDatabase {
                 database.close();
             }
         }catch (SQLiteException e){
-            Log.e("loge", "checkDatabase: " + e.toString());
         }
 
         return database != null? true:false;
     }
 
     private static void copyDatabase(Context context){
-
-        String dbPath = "data/data/"+ context.getPackageName() + "/databases/";
 
         if (checkDatabase(context)){
             return;}

@@ -1,4 +1,4 @@
-package by.nepravsky.sm.evereactioncalculator.utils;
+package by.nepravsky.sm.domain.utils;
 
 import android.text.TextUtils;
 

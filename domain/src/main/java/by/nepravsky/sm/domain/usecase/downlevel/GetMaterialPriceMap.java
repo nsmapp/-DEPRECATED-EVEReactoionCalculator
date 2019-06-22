@@ -19,7 +19,6 @@ import io.reactivex.functions.Function;
 
 public class GetMaterialPriceMap extends BaseUseCase implements MaterialPriceMapCase {
 
-
     private OrderRepository orderRepository;
 
     @Inject
@@ -28,7 +27,6 @@ public class GetMaterialPriceMap extends BaseUseCase implements MaterialPriceMap
         super(postExecutionThread);
         this.orderRepository = orderRepository;
     }
-
 
 
     public Observable<Map<String, MaterialPrice>> get(List<String> typeID, final int regionId){
@@ -59,18 +57,18 @@ public class GetMaterialPriceMap extends BaseUseCase implements MaterialPriceMap
                 });
     }
 
-    private List<Order> filterBySystem(List<Order> orders, int systemId){
-
-        List<Order> filtrOrder = new ArrayList<>();
-
-        for (Order o: orders) {
-            if (o.getSystemId() == systemId){
-                filtrOrder.add(o);
-            }
-        }
-
-        return filtrOrder;
-    }
+//    private List<Order> filterBySystem(List<Order> orders, int systemId){
+//
+//        List<Order> filtrOrder = new ArrayList<>();
+//
+//        for (Order o: orders) {
+//            if (o.getSystemId() == systemId){
+//                filtrOrder.add(o);
+//            }
+//        }
+//
+//        return filtrOrder;
+//    }
 
     private MaterialPrice getPrice(List<Order> orders){
 

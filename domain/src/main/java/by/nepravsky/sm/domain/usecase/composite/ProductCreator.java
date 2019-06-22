@@ -1,7 +1,5 @@
 package by.nepravsky.sm.domain.usecase.composite;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +84,6 @@ public class ProductCreator extends BaseUseCase {
         long reactionTime = formula.getTime() * runs;
         List<FormulaComponent> componentsList = new ArrayList<>();
 
-        Log.d("logdti", "react ti,: " + reactionTime);
         componentsList.addAll(formula.getProductList());
         componentsList.addAll(formula.getMaterialList());
 
@@ -111,7 +108,6 @@ public class ProductCreator extends BaseUseCase {
             }
 
             fc.setMaterialInfoAndPrice(vol, material.getName(), buy, sell, runs);
-
 
         }
 

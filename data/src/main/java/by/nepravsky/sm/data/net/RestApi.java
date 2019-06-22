@@ -10,8 +10,6 @@ import retrofit2.http.Query;
 
 public interface RestApi {
 
-
-
     @GET("legacy/markets/{region_id}/orders/")
     Observable<List<MaterialOrder>> getOrders(@Path("region_id") int regionId,
                                               @Query("type_id") String typeId);

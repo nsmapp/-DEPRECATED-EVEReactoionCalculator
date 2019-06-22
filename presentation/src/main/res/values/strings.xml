@@ -27,7 +27,7 @@
     <string name="buy_spase">Buy:</string>
     <string name="sell_spase">Sell:</string>
     <string name="volume_of_material">Volume of material:</string>
-    <string name="cost_of_reaction">Cost of reaction</string>
+    <string name="cost_of_material">Cost of materials( with tax)</string>
     <string name="reaction_information">Reaction information</string>
 
     <array name="regions">
