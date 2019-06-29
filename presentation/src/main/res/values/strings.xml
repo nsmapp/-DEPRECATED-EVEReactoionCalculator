@@ -3,10 +3,10 @@
     <string name="save">Save</string>
     <string name="load_from_db">load from db</string>
     <string name="load_from_web">load from web</string>
-    <string name="sell">sell:</string>
-    <string name="buy">buy:</string>
-    <string name="vol">vol:</string>
-    <string name="quantity">quantity:</string>
+    <string name="sell">Sell:</string>
+    <string name="buy">Buy:</string>
+    <string name="vol">Vol:</string>
+    <string name="quantity">Quantity:</string>
     <string name="reaction">Reaction</string>
     <string name="reaction_name_not_filled">\"Reaction name\" field is not filled</string>
     <string name="runs_not_filled">\"Runs\" field is not filled</string>

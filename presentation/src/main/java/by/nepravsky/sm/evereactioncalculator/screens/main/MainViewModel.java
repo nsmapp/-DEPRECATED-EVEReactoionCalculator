@@ -133,7 +133,7 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
                         public void onNext(Product product) {
 
                             disableProgressBar();
-                            setAllReactionInfo(product);
+                            setReactionInfo(product);
                             productsCach.addLast(product);
                         }
 
@@ -154,7 +154,7 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
         }
     }
 
-    protected void setAllReactionInfo(Product product){
+    protected void setReactionInfo(Product product){
 
         adapter.setEntity(product.getComponentsList());
         materialBuy.set(

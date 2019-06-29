@@ -61,4 +61,8 @@ ext{
     //dagger
     javaInjectVersion = '1'
     daggerVersion = '2.16'
+
+    //playservice
+    firebaseVersion = '16.0.9'
+    crashlyticsVersion = '2.10.1'
 }

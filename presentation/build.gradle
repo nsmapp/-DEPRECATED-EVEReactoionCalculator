@@ -8,8 +8,8 @@ android {
         applicationId "by.nepravsky.sm.evereactioncalculator"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 3
-        versionName "1.0.2b"
+        versionCode 9
+        versionName "1.0.7b"
     }
     buildTypes {
         release {
@@ -52,8 +52,8 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     //googlefb
-    implementation 'com.google.firebase:firebase-core:16.0.9'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation "com.google.firebase:firebase-core:$firebaseVersion"
+    implementation "com.crashlytics.sdk.android:crashlytics:$crashlyticsVersion"
 
 
 }

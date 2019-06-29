@@ -3,9 +3,7 @@ package by.nepravsky.sm.evereactioncalculator.screens.main;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -93,7 +91,7 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel,
 
             if (viewModel.productsCach.size() > 1) {
                 viewModel.productsCach.removeLast();
-                viewModel.setAllReactionInfo(viewModel.productsCach.getLast());
+                viewModel.setReactionInfo(viewModel.productsCach.getLast());
 
             }
         }
