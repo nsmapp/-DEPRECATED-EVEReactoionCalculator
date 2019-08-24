@@ -1,6 +1,7 @@
 package by.nepravsky.sm.data.database.entity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -14,23 +15,28 @@ public class MaterialDBE {
     @ColumnInfo(name = "id")
     private  String id ="";
 
+    @NonNull
     @ColumnInfo(name = "ru")
-    private String ru;
-
+    private String ru = "";
+    @NonNull
     @ColumnInfo(name = "en")
-    private String en;
+    private String en = "";
 
+    @NonNull
     @ColumnInfo(name = "fr")
-    private String fr;
+    private String fr = "";
 
+    @NonNull
     @ColumnInfo(name = "de")
-    private String de;
+    private String de = "";
 
+    @NonNull
     @ColumnInfo(name = "volume")
-    private double volume;
+    private double volume = 0.0;
 
+    @NonNull
     @ColumnInfo(name = "base_price")
-    private double basePrice;
+    private double basePrice = 0.0;
 
     public double getBasePrice() {
         return basePrice;

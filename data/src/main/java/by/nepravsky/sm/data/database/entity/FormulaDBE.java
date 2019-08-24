@@ -15,26 +15,32 @@ public class FormulaDBE {
     @ColumnInfo(name = "id")
     private  String id = "";
 
+    @NonNull
     @ColumnInfo(name = "ru")
-    private String ru;
+    private String ru = "";
 
+    @NonNull
     @ColumnInfo(name = "en")
-    private String en;
+    private String en = "";
 
+    @NonNull
     @ColumnInfo(name = "fr")
-    private String fr;
+    private String fr = "";
 
+    @NonNull
     @ColumnInfo(name = "de")
-    private String de;
+    private String de = "";
 
+    @NonNull
     @ColumnInfo(name = "mat")
-    private String material;
+    private String material = "";
 
     @ColumnInfo(name = "prod")
     private String product;
 
+    @NonNull
     @ColumnInfo(name = "time")
-    private String time;
+    private String time = "";
 
     @NonNull
     public String getId() {

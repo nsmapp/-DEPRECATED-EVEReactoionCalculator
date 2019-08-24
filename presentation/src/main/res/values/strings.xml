@@ -29,6 +29,9 @@
     <string name="volume_of_material">Volume of material:</string>
     <string name="cost_of_material">Cost of materials( with tax)</string>
     <string name="reaction_information">Reaction information</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="privacy_policy_url">https://docs.google.com/document/d/1iOy_XOMJoWQ8mKnLUaqg9SjWX7geTLvbXfnLQ04eKyw/edit</string>
+    <string name="settings">Settings</string>
 
     <array name="regions">
         <item name="Jita">The Forge(Jita)</item>
@@ -39,7 +42,7 @@
     </array>
 
     <array name="reactions">
-        <item name="Pure Strong Exile Booster">        Pure Strong Exile Booster</item>
+        <item name="Pure Strong Exile Booster">Pure Strong Exile Booster</item>
         <item name="Pure Strong Mindflood Booster">Pure Strong Mindflood Booster</item>
         <item name="Pure Strong Frentix Booster">Pure Strong Frentix Booster</item>
         <item name="Pure Strong X-Instinct Booster">Pure Strong X-Instinct Booster</item>
@@ -135,7 +138,21 @@
         <item name="Pure Strong Drop Booster">Pure Strong Drop Booster</item>
 
     </array>
+    <string name="title_activity_settings">Settings</string>
 
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 
 </resources>

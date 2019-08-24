@@ -1,5 +1,7 @@
 package by.nepravsky.sm.evereactioncalculator.screens.main;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -7,14 +9,17 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import by.nepravsky.sm.evereactioncalculator.R;
 import by.nepravsky.sm.evereactioncalculator.screens.base.activity.BaseMVVMActivity;
 import by.nepravsky.sm.evereactioncalculator.databinding.ActivityMainBinding;
+import by.nepravsky.sm.evereactioncalculator.screens.settings.SettingsActivity;
 
 
 public class MainActivity extends BaseMVVMActivity<MainViewModel,
@@ -39,16 +44,22 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel,
     public static long pressedTime;
 
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         AutoCompleteTextView reactions = findViewById(R.id.reaction);
         ArrayAdapter<String> reactionAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
+                R.layout.item_list_simple_text,
                 getResources().getStringArray(R.array.reactions));
-
         reactions.setAdapter(reactionAdapter);
+
+        Spinner spinner = findViewById(R.id.systems);
+        ArrayAdapter<String> systemList = new ArrayAdapter<>(this, R.layout.item_list_simple_text, getResources()
+        .getStringArray(R.array.regions));
+        spinner.setAdapter(systemList);
 
         binding.productList.setLayoutManager(new LinearLayoutManager(this));
         binding.reaction.setOnEditorActionListener(doneEvent);
@@ -64,6 +75,12 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel,
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.settings){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+
         if (item.getItemId() == R.id.about){
             router.startAboutFragment();
         }

@@ -30,12 +30,12 @@ public class RestModule {
     public RestModule() {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(
-//                new HttpLoggingInterceptor.Logger() {
-//                    @Override
-//                    public void log(String message) {
-//                          Log.d("logd interceptor", message);
-//                    }
-//                }
+                new HttpLoggingInterceptor.Logger() {
+                    @Override
+                    public void log(String message) {
+                          Log.d("logd interceptor", message);
+                    }
+                }
         );
 
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

@@ -35,7 +35,6 @@ import io.reactivex.functions.Consumer;
 public class MainViewModel extends BaseViewModel<MainRouter> {
 
     public ObservableInt spinnerId = new ObservableInt();
-    public  ObservableArrayList<String> systemList = new ObservableArrayList<>();
 
     public ObservableField<String> reaction = new ObservableField<>();
     public ObservableField<String> runs = new ObservableField<>("1");
@@ -69,11 +68,6 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
 
     public MainViewModel() {
 
-
-
-        if (systemList.size() == 0){
-            systemList.addAll(new ArrayList<>(Arrays.asList(resources.getStringArray(R.array.regions))));
-        }
 
         addCompositeDisposable(
                 adapter.observItemClick()

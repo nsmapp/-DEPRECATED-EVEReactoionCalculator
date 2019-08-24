@@ -56,7 +56,7 @@ ext{
     okHttpVersion = '3.11.0'
 
     //database
-    roomVersion = '2.1.0-beta01'
+    roomVersion = '2.2.0-beta01'
 
     //dagger
     javaInjectVersion = '1'

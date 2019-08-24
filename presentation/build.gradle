@@ -8,8 +8,8 @@ android {
         applicationId "by.nepravsky.sm.evereactioncalculator"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 9
-        versionName "1.0.7b"
+        versionCode 10
+        versionName "1.1.0"
     }
     buildTypes {
         release {
@@ -35,6 +35,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appcompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintVersion"
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.preference:preference:1.1.0-rc01'
 
     //picasso
     implementation "com.squareup.picasso:picasso:$picassoVersion"
