@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00467E</color>
-    <color name="colorPrimaryDark">#002B3C</color>
-    <color name="colorAccent">#FFD4AD</color>
+    <color name="colorPrimary">#3A85C0</color>
+    <color name="colorPrimaryDark">#61B1FF</color>
+    <color name="colorAccent">#363636</color>
 
-    <color name="borderGreen">#3A773C</color>
-    <color name="borderBlue">#2F5672</color>
-    <color name="back">#FFDD8A</color>
-    <color name="background_white">#1B1B1F</color>
-    <color name="backgroundItem">#2C2B2B</color>
+    <color name="borderGreen">#3E8140</color>
+    <color name="borderBlue">#3D6E94</color>
+    <color name="back">#2C2C2C</color>
+    <color name="background_white">#EBEBEB</color>
+    <color name="backgroundItem">#E4E4E4</color>
 
-    <color name="textColor">#FFDD8A</color>
-    <color name="textColorHint">#9B8366</color>
-    <color name="colorControlActivated">#FFDDAA</color>
-    <color name="colorControlNormal">#AC906E</color>
+    <color name="textColor">#0F0F0F</color>
+    <color name="textColorHint">#444444</color>
+    <color name="colorControlActivated">#575757</color>
+    <color name="colorControlNormal">#363636</color>
 </resources>
+
+

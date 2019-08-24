@@ -17,6 +17,7 @@
             tools:ignore="GoogleAppIndexingWarning">
         <activity
                 android:name=".screens.settings.SettingsActivity"
+                android:theme="@style/preferenceScreen"
                 android:label="@string/title_activity_settings">
         </activity>
         <activity android:name=".screens.main.MainActivity">

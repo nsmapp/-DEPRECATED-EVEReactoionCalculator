@@ -5,11 +5,11 @@
 
     <PreferenceCategory>
         <SwitchPreferenceCompat
-
                 android:key="nightthem"
                 android:title="Dark theme"
                 app:summaryOn="Dark them enabled"
                 app:summaryOff="Dark them disabled"
+
                 />
 
     </PreferenceCategory>
