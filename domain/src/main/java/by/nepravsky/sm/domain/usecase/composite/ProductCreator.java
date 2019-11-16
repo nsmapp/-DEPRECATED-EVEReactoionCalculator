@@ -18,6 +18,7 @@ import by.nepravsky.sm.domain.usecase.downlevel.caseinterface.FormulaCase;
 import by.nepravsky.sm.domain.usecase.downlevel.caseinterface.MaterialMapCase;
 import by.nepravsky.sm.domain.usecase.downlevel.caseinterface.MaterialPriceMapCase;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
 public class ProductCreator extends BaseUseCase {

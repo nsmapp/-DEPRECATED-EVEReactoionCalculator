@@ -45,10 +45,10 @@ public class SettingsActivity extends AppCompatActivity {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
             if (key.equals(RequesiIDs.nightThem)) {
-                if(sharedPreferences.getBoolean(RequesiIDs.nightThem, false)){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                } else {
+                if(sharedPreferences.getBoolean(RequesiIDs.nightThem, true)){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
             }
 

@@ -1,8 +1,6 @@
 package by.nepravsky.sm.domain.usecase.downlevel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -38,9 +36,6 @@ public class GetMaterialPriceMap extends BaseUseCase implements MaterialPriceMap
                     @Override
                     public Map<String, MaterialPrice> apply(List<List<Order>> orders) throws Exception {
 
-//                        for (List<Order> lo: orders) {
-//                            filterBySystem(lo, regionId);
-//                        }
 
                         Map<String, MaterialPrice> priceMap = new HashMap<>();
 
@@ -57,18 +52,6 @@ public class GetMaterialPriceMap extends BaseUseCase implements MaterialPriceMap
                 });
     }
 
-//    private List<Order> filterBySystem(List<Order> orders, int systemId){
-//
-//        List<Order> filtrOrder = new ArrayList<>();
-//
-//        for (Order o: orders) {
-//            if (o.getSystemId() == systemId){
-//                filtrOrder.add(o);
-//            }
-//        }
-//
-//        return filtrOrder;
-//    }
 
     private MaterialPrice getPrice(List<Order> orders){
 
