@@ -7,9 +7,9 @@ import javax.inject.Singleton;
 
 import by.nepravsky.sm.data.database.AppDatabase;
 import by.nepravsky.sm.data.database.repositoryImpl.FormulaRepoImpl;
-import by.nepravsky.sm.data.database.repositoryImpl.MaterialRepoImpl;
+import by.nepravsky.sm.data.database.repositoryImpl.ItemRepoImpl;
 import by.nepravsky.sm.domain.repositories.FormulaRepositories;
-import by.nepravsky.sm.domain.repositories.MaterialRepositories;
+import by.nepravsky.sm.domain.repositories.ItemRepositories;
 import dagger.Module;
 import dagger.Provides;
 
@@ -34,7 +34,7 @@ public class DatabaseModule {
     }
 
     @Provides
-    public MaterialRepositories provideMaterialRepo(MaterialRepoImpl materialRepoImpl){
-        return materialRepoImpl;
+    public ItemRepositories provideMaterialRepo(ItemRepoImpl itemRepoImpl){
+        return itemRepoImpl;
     }
 }

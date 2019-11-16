@@ -7,11 +7,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import by.nepravsky.sm.data.database.dao.FormulaDAO;
-import by.nepravsky.sm.data.database.dao.MaterialDAO;
+import by.nepravsky.sm.data.database.dao.ItemDAO;
 import by.nepravsky.sm.data.database.entity.FormulaDBE;
-import by.nepravsky.sm.data.database.entity.MaterialDBE;
+import by.nepravsky.sm.data.database.entity.ItemDBE;
 
-@Database(entities = {FormulaDBE.class, MaterialDBE.class}, version = 11)
+@Database(entities = {FormulaDBE.class, ItemDBE.class}, version = 11)
 public abstract class AppDatabase extends RoomDatabase {
 
 
@@ -34,7 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return appDatabase;
     }
 
-    public abstract MaterialDAO getMaterialDAO();
+    public abstract ItemDAO getMaterialDAO();
     public abstract FormulaDAO getFormulaDAO();
 
 

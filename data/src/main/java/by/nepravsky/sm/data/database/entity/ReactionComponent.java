@@ -3,7 +3,7 @@ package by.nepravsky.sm.data.database.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProductionItem {
+public class ReactionComponent {
 
     @SerializedName("quantity")
     @Expose

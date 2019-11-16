@@ -6,7 +6,7 @@ import java.util.Map;
 import by.nepravsky.sm.domain.entity.Material;
 import io.reactivex.Observable;
 
-public interface MaterialRepositories {
+public interface ItemRepositories {
 
-    Observable<Map<String, Material>> getMaterialList(List<String> idList);
+    Observable<Map<String, Material>> getItemList(List<String> idList);
 }

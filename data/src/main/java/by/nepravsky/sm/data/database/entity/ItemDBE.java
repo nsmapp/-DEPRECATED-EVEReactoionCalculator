@@ -1,14 +1,13 @@
 package by.nepravsky.sm.data.database.entity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import by.nepravsky.sm.data.database.dao.MaterialDAO;
+import by.nepravsky.sm.data.database.dao.ItemDAO;
 
-@Entity(tableName = MaterialDAO.TABLE_NAME)
-public class MaterialDBE {
+@Entity(tableName = ItemDAO.TABLE_NAME)
+public class ItemDBE {
 
     @PrimaryKey
     @NonNull

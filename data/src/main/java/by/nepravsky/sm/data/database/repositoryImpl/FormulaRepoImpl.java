@@ -6,7 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import by.nepravsky.sm.data.database.AppDatabase;
 import by.nepravsky.sm.data.database.entity.FormulaDBE;
-import by.nepravsky.sm.data.database.entity.ProductionItem;
+import by.nepravsky.sm.data.database.entity.ReactionComponent;
 import by.nepravsky.sm.domain.entity.Formula;
 import by.nepravsky.sm.domain.entity.FormulaComponent;
 import by.nepravsky.sm.domain.repositories.FormulaRepositories;
@@ -37,12 +37,12 @@ public class FormulaRepoImpl implements FormulaRepositories {
 
                         Gson gson = new Gson();
 
-                        ProductionItem[] materialItems =
-                                gson.fromJson(formulaDBE.getMaterial(), ProductionItem[].class);
-                        ProductionItem[] productionItems =
-                                gson.fromJson(formulaDBE.getProduct(), ProductionItem[].class);
+                        ReactionComponent[] materialItems =
+                                gson.fromJson(formulaDBE.getMaterial(), ReactionComponent[].class);
+                        ReactionComponent[] reactionComponents =
+                                gson.fromJson(formulaDBE.getProduct(), ReactionComponent[].class);
 
-                        for (ProductionItem m: materialItems){
+                        for (ReactionComponent m: materialItems){
                             materials.add(new FormulaComponent(
                                     String.valueOf(m.getTypeID()),
                                     m.getQuantity(),
@@ -50,7 +50,7 @@ public class FormulaRepoImpl implements FormulaRepositories {
                             );
                         }
 
-                        for (ProductionItem p: productionItems){
+                        for (ReactionComponent p: reactionComponents){
                             products.add(new FormulaComponent(
                                     String.valueOf(p.getTypeID()),
                                     p.getQuantity(),
