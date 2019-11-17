@@ -34,7 +34,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return appDatabase;
     }
 
-    public abstract ItemDAO getMaterialDAO();
+    public abstract ItemDAO getItemDAO();
     public abstract FormulaDAO getFormulaDAO();
 
 

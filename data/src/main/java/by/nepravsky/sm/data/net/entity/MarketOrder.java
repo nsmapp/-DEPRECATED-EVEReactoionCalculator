@@ -3,7 +3,7 @@ package by.nepravsky.sm.data.net.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MaterialOrder {
+public class MarketOrder implements Comparable<MarketOrder> {
 
     @SerializedName("duration")
     @Expose
@@ -62,5 +62,10 @@ public class MaterialOrder {
 
     public int getSystemId() {
         return systemId;
+    }
+
+    @Override
+    public int compareTo(MarketOrder o) {
+        return (int) (this.price - o.price);
     }
 }

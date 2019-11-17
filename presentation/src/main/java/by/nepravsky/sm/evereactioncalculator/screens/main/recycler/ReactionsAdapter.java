@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import by.nepravsky.sm.domain.entity.FormulaComponent;
+import by.nepravsky.sm.domain.entity.old.FormulaComponent;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseAdapter;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseClickedModel;
 import io.reactivex.Observable;

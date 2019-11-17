@@ -3,10 +3,10 @@ package by.nepravsky.sm.domain.repositories;
 import java.util.List;
 import java.util.Map;
 
-import by.nepravsky.sm.domain.entity.Material;
-import io.reactivex.Observable;
+import by.nepravsky.sm.domain.entity.Item;
+import io.reactivex.Single;
 
 public interface ItemRepositories {
 
-    Observable<Map<String, Material>> getItemList(List<String> idList);
+    Single<Map<Integer, Item>> getItemList(List<String> idList);
 }

@@ -8,13 +8,12 @@ import javax.inject.Inject;
 
 import by.nepravsky.sm.data.database.AppDatabase;
 import by.nepravsky.sm.data.database.entity.ItemDBE;
-import by.nepravsky.sm.domain.entity.Material;
+import by.nepravsky.sm.domain.entity.Item;
 import by.nepravsky.sm.domain.repositories.ItemRepositories;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.functions.Function;
 
 public class ItemRepoImpl implements ItemRepositories {
-
 
     private AppDatabase appDatabase;
 
@@ -24,27 +23,26 @@ public class ItemRepoImpl implements ItemRepositories {
 
     }
 
-
     @Override
-    public Observable<Map<String, Material>> getItemList(List<String> idList) {
-        return appDatabase
-                .getMaterialDAO()
+    public Single<Map<Integer, Item>> getItemList(List<String> idList) {
+        return appDatabase.getItemDAO()
                 .getItemList(idList)
-                .toObservable()
-                .map(new Function<List<ItemDBE>, Map<String, Material>>() {
+                .map(new Function<List<ItemDBE>, Map<Integer, Item>>() {
                     @Override
-                    public Map<String, Material> apply(List<ItemDBE> itemDBES) throws Exception {
+                    public Map<Integer, Item> apply(List<ItemDBE> items) throws Exception {
 
-                        Map<String, Material> materialMap = new HashMap<>();
-                        for (ItemDBE m : itemDBES){
-                            materialMap.put(m.getId(),
-                                    new Material(m.getEn(),
-                                            m.getId(),
-                                            m.getVolume(),
-                                            m.getBasePrice()));
+                        Map<Integer, Item> itemMap = new HashMap<>();
+                        for(ItemDBE item : items){
+                            Item domainItem = new Item(
+                                    Integer.valueOf(item.getId()),
+                                    item.getEn(),
+                                    item.getVolume(),
+                                    item.getBasePrice()
+                            );
+                            itemMap.put(domainItem.getId(), domainItem);
                         }
 
-                        return materialMap;
+                        return itemMap;
                     }
                 });
     }

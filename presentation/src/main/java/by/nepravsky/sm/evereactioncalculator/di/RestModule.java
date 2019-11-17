@@ -2,8 +2,8 @@ package by.nepravsky.sm.evereactioncalculator.di;
 
 import javax.inject.Singleton;
 
-import by.nepravsky.sm.data.net.repoimpl.OrderRepoImp;
-import by.nepravsky.sm.domain.repositories.OrderRepository;
+import by.nepravsky.sm.data.net.repoimpl.PriceInfoRepoImp;
+import by.nepravsky.sm.domain.repositories.PriceInfoRepository;
 import dagger.Module;
 import dagger.Provides;
 
@@ -12,7 +12,7 @@ public class RestModule {
 
     @Provides
     @Singleton
-    public OrderRepository provideOrderRepository(OrderRepoImp orderRepoImp){
+    public PriceInfoRepository provideOrderRepository(PriceInfoRepoImp orderRepoImp){
         return orderRepoImp;
     }
 

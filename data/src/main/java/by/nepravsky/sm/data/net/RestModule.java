@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import by.nepravsky.sm.data.net.entity.MaterialOrder;
+import by.nepravsky.sm.data.net.entity.MarketOrder;
 import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -61,7 +61,7 @@ public class RestModule {
                 .create(RestApi.class);
     }
 
-    public Observable<List<MaterialOrder>> getMarketOrder(String typeId, int regionId){
+    public Observable<List<MarketOrder>> getMarketOrder(String typeId, int regionId){
         return restApi.getOrders(regionId, typeId);
     }
 

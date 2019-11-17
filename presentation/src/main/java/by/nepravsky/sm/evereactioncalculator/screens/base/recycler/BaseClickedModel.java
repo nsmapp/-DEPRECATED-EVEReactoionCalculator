@@ -1,7 +1,7 @@
 package by.nepravsky.sm.evereactioncalculator.screens.base.recycler;
 
 
-import by.nepravsky.sm.domain.entity.DomainEntity;
+import by.nepravsky.sm.domain.entity.old.DomainEntity;
 
 public class BaseClickedModel<E extends DomainEntity> {
 

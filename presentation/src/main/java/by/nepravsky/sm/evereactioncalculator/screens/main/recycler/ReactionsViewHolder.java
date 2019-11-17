@@ -4,7 +4,7 @@ package by.nepravsky.sm.evereactioncalculator.screens.main.recycler;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import by.nepravsky.sm.domain.entity.FormulaComponent;
+import by.nepravsky.sm.domain.entity.old.FormulaComponent;
 import by.nepravsky.sm.evereactioncalculator.databinding.ItemProductBinding;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseViewHolder;
 

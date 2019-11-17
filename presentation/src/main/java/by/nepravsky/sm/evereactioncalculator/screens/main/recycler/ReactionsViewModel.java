@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
-import by.nepravsky.sm.domain.entity.FormulaComponent;
+import by.nepravsky.sm.domain.entity.old.FormulaComponent;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseClickedModel;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseViewModel;
 import io.reactivex.subjects.PublishSubject;

@@ -5,20 +5,17 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Locale;
 
 import javax.inject.Inject;
 
 import by.nepravsky.sm.domain.utils.TimeConverter;
-import by.nepravsky.sm.domain.entity.FormulaComponent;
-import by.nepravsky.sm.domain.entity.Product;
+import by.nepravsky.sm.domain.entity.old.FormulaComponent;
+import by.nepravsky.sm.domain.entity.old.Product;
 import by.nepravsky.sm.domain.entity.Tax;
 import by.nepravsky.sm.domain.usecase.composite.ProductCreator;
 import by.nepravsky.sm.evereactioncalculator.R;

@@ -7,7 +7,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import by.nepravsky.sm.domain.entity.DomainEntity;
+import by.nepravsky.sm.domain.entity.old.DomainEntity;
 import io.reactivex.subjects.PublishSubject;
 
 public abstract class BaseAdapter<E extends DomainEntity,

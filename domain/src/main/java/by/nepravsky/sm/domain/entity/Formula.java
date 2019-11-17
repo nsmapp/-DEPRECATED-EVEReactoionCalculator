@@ -1,44 +1,40 @@
 package by.nepravsky.sm.domain.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Formula {
 
-    private List<FormulaComponent> materialList;
-    private List<FormulaComponent> productList;
-    private int time;
-    private List<String> IdList = new ArrayList<>();
+    private int id;
+    private String name = "";
+    private List<ReactionItem> material;
+    private List<ReactionItem> product;
+    private int time = 0;
 
-    public Formula(List<FormulaComponent> materialList, List<FormulaComponent> productList, int time) {
-        this.materialList = materialList;
-        this.productList = productList;
+    public Formula(int id, String name, List<ReactionItem> material, List<ReactionItem> product, int time) {
+        this.id = id;
+        this.name = name;
+        this.material = material;
+        this.product = product;
         this.time = time;
-
-        for (FormulaComponent fc: materialList) {
-            IdList.add(fc.getId());
-        }
-
-        for (FormulaComponent fc: productList){
-            IdList.add(fc.getId());
-        }
-
-
     }
 
-    public List<String> getIdList() {
-        return IdList;
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<ReactionItem> getMaterial() {
+        return material;
+    }
+
+    public List<ReactionItem> getProduct() {
+        return product;
     }
 
     public int getTime() {
         return time;
-    }
-
-    public List<FormulaComponent> getMaterialList() {
-        return materialList;
-    }
-
-    public List<FormulaComponent> getProductList() {
-        return productList;
     }
 }

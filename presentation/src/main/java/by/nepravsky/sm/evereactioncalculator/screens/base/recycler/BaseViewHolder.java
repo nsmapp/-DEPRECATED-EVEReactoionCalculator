@@ -3,7 +3,7 @@ package by.nepravsky.sm.evereactioncalculator.screens.base.recycler;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 import by.nepravsky.sm.evereactioncalculator.BR;
-import by.nepravsky.sm.domain.entity.DomainEntity;
+import by.nepravsky.sm.domain.entity.old.DomainEntity;
 
 
 public class BaseViewHolder<E extends DomainEntity,
