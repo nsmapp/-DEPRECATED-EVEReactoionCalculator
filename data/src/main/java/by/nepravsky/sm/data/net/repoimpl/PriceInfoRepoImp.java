@@ -3,7 +3,6 @@ package by.nepravsky.sm.data.net.repoimpl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -11,7 +10,6 @@ import by.nepravsky.sm.data.net.RestModule;
 import by.nepravsky.sm.data.net.entity.MarketOrder;
 import by.nepravsky.sm.domain.entity.ItemPriceInfo;
 import by.nepravsky.sm.domain.repositories.PriceInfoRepository;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
 
@@ -67,4 +65,5 @@ public class PriceInfoRepoImp implements PriceInfoRepository {
                     }
                 });
     }
+
 }

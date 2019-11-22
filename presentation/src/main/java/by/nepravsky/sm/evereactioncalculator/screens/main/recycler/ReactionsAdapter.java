@@ -6,15 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import by.nepravsky.sm.domain.entity.old.FormulaComponent;
+import by.nepravsky.sm.domain.entity.presentation.ItemPres;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseAdapter;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseClickedModel;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 
-public class ReactionsAdapter  extends BaseAdapter<FormulaComponent, ReactionsViewModel> {
+public class ReactionsAdapter  extends BaseAdapter<ItemPres, ReactionsViewModel> {
 
-    private PublishSubject<BaseClickedModel<FormulaComponent>> positionCLick = PublishSubject.create();
+    private PublishSubject<BaseClickedModel<ItemPres>> positionCLick = PublishSubject.create();
 
 
     @NonNull
@@ -23,7 +23,7 @@ public class ReactionsAdapter  extends BaseAdapter<FormulaComponent, ReactionsVi
         return ReactionsViewHolder.init(parent, new ReactionsViewModel(positionCLick));
     }
 
-    public Observable<BaseClickedModel<FormulaComponent>> observItemClick(){
+    public Observable<BaseClickedModel<ItemPres>> observItemClick(){
         return positionCLick;
     }
 

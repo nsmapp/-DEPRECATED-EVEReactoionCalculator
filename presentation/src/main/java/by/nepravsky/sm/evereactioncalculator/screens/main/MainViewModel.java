@@ -4,30 +4,29 @@ import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
-import java.util.LinkedList;
+import com.squareup.picasso.Picasso;
+
 import java.util.Locale;
 
 import javax.inject.Inject;
-
+import by.nepravsky.sm.domain.entity.presentation.ReactionPres;
+import by.nepravsky.sm.domain.usecase.reactor.SingleReactionUseCase;
 import by.nepravsky.sm.domain.utils.TimeConverter;
-import by.nepravsky.sm.domain.entity.old.FormulaComponent;
-import by.nepravsky.sm.domain.entity.old.Product;
 import by.nepravsky.sm.domain.entity.Tax;
-import by.nepravsky.sm.domain.usecase.composite.ProductCreator;
 import by.nepravsky.sm.evereactioncalculator.R;
 import by.nepravsky.sm.evereactioncalculator.app.App;
 import by.nepravsky.sm.evereactioncalculator.screens.base.activity.BaseViewModel;
-import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseClickedModel;
 import by.nepravsky.sm.evereactioncalculator.screens.main.recycler.ReactionsAdapter;
 import by.nepravsky.sm.evereactioncalculator.utils.ErrorMessage;
 import by.nepravsky.sm.domain.utils.NumberValidator;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 public class MainViewModel extends BaseViewModel<MainRouter> {
 
@@ -40,17 +39,22 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
     public ObservableField<String> reactionTax = new ObservableField<>("0.1");
 
 
+    public ObservableField<String> productVolume= new ObservableField<>();
+    public ObservableField<String> productQuantity = new ObservableField<>();
+    public ObservableField<String> productSell = new ObservableField<>();
+    public ObservableField<String> productBuy = new ObservableField<>();
+    public ObservableField<String> reactionTime = new ObservableField<>();
     public ObservableField<String> materialSell = new ObservableField<>();
     public ObservableField<String> materialBuy = new ObservableField<>();
     public ObservableField<String> materialVol = new ObservableField<>();
-    public ObservableField<String> reactionTime = new ObservableField<>();
+    public ObservableField<String> productUrl = new ObservableField<>("14");
 
     public ObservableInt isVisableSettings = new ObservableInt(View.GONE);
     public ObservableInt isVisableInformation = new ObservableInt(View.VISIBLE);
 
     private int systemId  = 10000002;
     public ReactionsAdapter adapter = new ReactionsAdapter();
-    public LinkedList<Product> productsCach = new LinkedList<>();
+//    public LinkedList<Product> productsCach = new LinkedList<>();
 
 
     @Override
@@ -58,23 +62,22 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
         App.getAppComponent().runInject(this);
     }
 
-    @Inject public ProductCreator productCreator;
+    @Inject public SingleReactionUseCase singleReaction;
     @Inject public TimeConverter timeConverter;
     @Inject public ErrorMessage errorMessage;
     @Inject public Resources resources;
 
     public MainViewModel() {
 
-
-        addCompositeDisposable(
-                adapter.observItemClick()
-                        .subscribe(new Consumer<BaseClickedModel<FormulaComponent>>() {
-                            @Override
-                            public void accept(BaseClickedModel<FormulaComponent> formulaComponent) throws Exception {
-                                loadReaction(formulaComponent.getEntity().getName());
-                            }
-                        })
-        );
+//        addCompositeDisposable(
+//                adapter.observItemClick()
+//                        .subscribe(new Consumer<BaseClickedModel<FormulaComponent>>() {
+//                            @Override
+//                            public void accept(BaseClickedModel<FormulaComponent> formulaComponent) throws Exception {
+//                                loadReaction(formulaComponent.getEntity().getName());
+//                            }
+//                        })
+//        );
     }
 
     public void searchOnClick(){
@@ -111,26 +114,36 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
                     break;
             }
 
-            long run = Long.parseLong(runs.get());
+            int run = Integer.parseInt(runs.get());
 
             productCreator.get(reactionName, systemId, run, tax)
                     .subscribe(new Observer<Product>() {
                         @Override
                         public void onSubscribe(Disposable d) {
                             addCompositeDisposable(d);
+
                         }
 
                         @Override
                         public void onNext(Product product) {
 
                             disableProgressBar();
-                            setReactionInfo(product);
-                            productsCach.addLast(product);
+                            productUrl.set(String.valueOf(reactionPres.getProduct().getId()));
+                            productBuy.set(reactionPres.getProduct().getBuyPriceString());
+                            productSell.set(reactionPres.getProduct().getSellPriceString());
+                            productQuantity.set(String.valueOf(reactionPres.getProduct().getQuantity()));
+                            productVolume.set(reactionPres.getProduct().getVolumeString());
+                            adapter.setEntity(reactionPres.getMaterialList());
+                            materialBuy.set(reactionPres.getMaterialBuyPrice());
+                            materialSell.set(reactionPres.getMaterialSellPrice());
+                            materialVol.set(reactionPres.getMatVolume());
+                            reactionTime.set(timeConverter
+                                     .calculateDMHE(reactionPres.getReactionTime())
+                            );
                         }
 
                         @Override
                         public void onError(Throwable e) {
-
                             disableProgressBar();
                             router.showToast(errorMessage.getErrorMessage(e.toString()));
                             Log.d("logde", e.toString());
@@ -145,23 +158,23 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
         }
     }
 
-    protected void setReactionInfo(Product product){
-
-        adapter.setEntity(product.getComponentsList());
-        materialBuy.set(
-                String.format(Locale.getDefault(),
-                        "%,3.2f",
-                        product.getMaterialBuy()) + " ISK");
-        materialSell.set(
-                String.format(Locale.getDefault(),
-                        "%,3.2f",
-                        product.getMaterialSell()) + " ISK");
-        materialVol.set(String.format(Locale.getDefault(),
-                "%,3.2f",
-                product.getMaterialVol())  + " m\u00b3");
-
-        reactionTime.set(timeConverter.calculateDMHE(product.getBuildingTime()));
-    }
+//    protected void setReactionInfo(Product product){
+//
+//        adapter.setEntity(product.getComponentsList());
+//        materialBuy.set(
+//                String.format(Locale.getDefault(),
+//                        "%,3.2f",
+//                        product.getMaterialBuy()) + " ISK");
+//        materialSell.set(
+//                String.format(Locale.getDefault(),
+//                        "%,3.2f",
+//                        product.getMaterialSell()) + " ISK");
+//        materialVol.set(String.format(Locale.getDefault(),
+//                "%,3.2f",
+//                product.getMaterialVol())  + " m\u00b3");
+//
+//        reactionTime.set(timeConverter.calculateDMHE(product.getBuildingTime()));
+//    }
 
     private boolean validationData(){
 
@@ -205,6 +218,5 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
             isVisableInformation.set(View.GONE);
         }
     }
-
 
 }

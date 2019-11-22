@@ -61,7 +61,7 @@ public class RestModule {
                 .create(RestApi.class);
     }
 
-    public Observable<List<MarketOrder>> getMarketOrder(String typeId, int regionId){
+    public Single<List<MarketOrder>> getMarketOrder(String typeId, int regionId){
         return restApi.getOrders(regionId, typeId);
     }
 

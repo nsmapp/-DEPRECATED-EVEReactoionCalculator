@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import by.nepravsky.sm.data.database.AppDatabase;
 import by.nepravsky.sm.data.database.entity.ItemDBE;
-import by.nepravsky.sm.domain.entity.Item;
+import by.nepravsky.sm.domain.entity.ItemInfo;
 import by.nepravsky.sm.domain.repositories.ItemRepositories;
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
@@ -24,22 +24,22 @@ public class ItemRepoImpl implements ItemRepositories {
     }
 
     @Override
-    public Single<Map<Integer, Item>> getItemList(List<String> idList) {
+    public Single<Map<Integer, ItemInfo>> getItemList(List<String> idList) {
         return appDatabase.getItemDAO()
                 .getItemList(idList)
-                .map(new Function<List<ItemDBE>, Map<Integer, Item>>() {
+                .map(new Function<List<ItemDBE>, Map<Integer, ItemInfo>>() {
                     @Override
-                    public Map<Integer, Item> apply(List<ItemDBE> items) throws Exception {
+                    public Map<Integer, ItemInfo> apply(List<ItemDBE> items) throws Exception {
 
-                        Map<Integer, Item> itemMap = new HashMap<>();
+                        Map<Integer, ItemInfo> itemMap = new HashMap<>();
                         for(ItemDBE item : items){
-                            Item domainItem = new Item(
+                            ItemInfo domainItemInfo = new ItemInfo(
                                     Integer.valueOf(item.getId()),
                                     item.getEn(),
                                     item.getVolume(),
                                     item.getBasePrice()
                             );
-                            itemMap.put(domainItem.getId(), domainItem);
+                            itemMap.put(domainItemInfo.getId(), domainItemInfo);
                         }
 
                         return itemMap;

@@ -11,12 +11,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
 
-import by.nepravsky.sm.domain.entity.old.FormulaComponent;
+import by.nepravsky.sm.domain.entity.presentation.ItemPres;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseClickedModel;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseViewModel;
 import io.reactivex.subjects.PublishSubject;
 
-public class ReactionsViewModel extends BaseViewModel<FormulaComponent> {
+public class ReactionsViewModel extends BaseViewModel<ItemPres> {
 
     public ObservableField<String> typeName = new ObservableField<>("");
     public ObservableField<String> vol = new ObservableField<>("");
@@ -27,30 +27,24 @@ public class ReactionsViewModel extends BaseViewModel<FormulaComponent> {
     public ObservableField<String> reactionComponent = new ObservableField<>("material");
     public ObservableBoolean isProduct = new ObservableBoolean(false);
 
-    public ObservableField<String> imgUrl = new ObservableField<>("");
+    public ObservableField<String> imgUrl = new ObservableField<>("0");
 
-    private PublishSubject<BaseClickedModel<FormulaComponent>> positionCLick;
+    private PublishSubject<BaseClickedModel<ItemPres>> positionCLick;
 
     @Override
-    public void setEntity(FormulaComponent entity, int position) {
+    public void setEntity(ItemPres entity, int position) {
 
         setEntity(entity);
 
-        imgUrl.set("https://imageserver.eveonline.com/Type/" + entity.getId() + "_64.png");
+        imgUrl.set(String.valueOf(entity.getId()));
         typeName.set(entity.getName());
         sell.set(String.format(Locale.getDefault(),"%,3.2f", entity.getSell()) + " ISK");
         buy.set(String.format(Locale.getDefault(),"%,3.2f", entity.getBuy()) + " ISK");
         vol.set(String.format(Locale.getDefault(),"%,3.2f", entity.getVol()) + " m\u00b3");
         quantity.set(entity.getQuantity() + " unit");
-        isProduct.set(entity.isProduct());
-
-        if (entity.isProduct()){
-            reactionComponent.set("product");
-        }
-
     }
 
-    public ReactionsViewModel(PublishSubject<BaseClickedModel<FormulaComponent>> positionCLick) {
+    public ReactionsViewModel(PublishSubject<BaseClickedModel<ItemPres>> positionCLick) {
         this.positionCLick = positionCLick;
     }
 
@@ -59,12 +53,7 @@ public class ReactionsViewModel extends BaseViewModel<FormulaComponent> {
         positionCLick.onNext(new BaseClickedModel<>(getEntity()));
     }
 
-    @BindingAdapter({"app:url"})
-    public static void loadImage(ImageView iv, String url) {
-        Picasso.get()
-                .load(url)
-                .into(iv);
-    }
+
 
 
 

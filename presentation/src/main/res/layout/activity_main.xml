@@ -252,109 +252,209 @@
             android:translationY="-2dp"
             android:visibility="@{viewModel.isVisableInformation}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reactionInformation">
 
             <TextView
                 android:id="@+id/reactionTime"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/reaction_time"
-                style="@style/naormalTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialBuy" />
+                app:layout_constraintTop_toBottomOf="@+id/lbuyPrice" />
 
             <TextView
                 android:id="@+id/eReactionTime"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@={viewModel.reactionTime}"
-                style="@style/naormalTextView"
                 app:layout_constraintBottom_toBottomOf="@+id/reactionTime"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/reactionTime" />
 
             <TextView
                 android:id="@+id/eMaterialBuy"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@={viewModel.materialBuy}"
-                style="@style/naormalTextView"
                 app:layout_constraintBottom_toBottomOf="@+id/materialBuy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/materialBuy" />
 
             <TextView
                 android:id="@+id/eMaterialSell"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@={viewModel.materialSell}"
-                style="@style/naormalTextView"
                 app:layout_constraintBottom_toBottomOf="@+id/materialsell"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/materialsell" />
 
             <TextView
                 android:id="@+id/materialBuy"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:text="@string/buy_spase"
-                style="@style/naormalTextView"
+                android:text="@string/buy_isk"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/materialsell" />
 
             <TextView
                 android:id="@+id/materialsell"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="4dp"
-                android:text="@string/sell_spase"
-                style="@style/naormalTextView"
+                android:text="@string/sell_isk"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/materialPrice" />
 
             <TextView
                 android:id="@+id/materialVol"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/volume_of_material"
-                style="@style/naormalTextView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reactionTime" />
+                app:layout_constraintTop_toBottomOf="@+id/materialBuy" />
 
             <TextView
                 android:id="@+id/eMaterialVol"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@={viewModel.materialVol}"
-                style="@style/naormalTextView"
                 app:layout_constraintBottom_toBottomOf="@+id/materialVol"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/materialVol" />
 
             <TextView
                 android:id="@+id/materialPrice"
+                style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/cost_of_material"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reactionTime" />
+
+            <ImageView
+                android:id="@+id/productImage"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                app:url="@{viewModel.productUrl}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                 />
+
+            <TextView
+                android:id="@+id/lvolume"
+                style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/volume_m3"
+                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintTop_toTopOf="@+id/productImage" />
+
+            <TextView
+                android:id="@+id/quantity"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
-                android:text="@string/cost_of_material"
+                android:text="@string/quantity_unit"
+                app:layout_constraintBottom_toBottomOf="@+id/productImage"
+                app:layout_constraintStart_toEndOf="@+id/productImage"
+                app:layout_constraintTop_toBottomOf="@+id/lvolume" />
+
+            <TextView
+                android:id="@+id/lsellPrice"
                 style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/sell_isk"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/productImage" />
+
+            <TextView
+                android:id="@+id/lbuyPrice"
+                style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/buy_isk"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lsellPrice" />
+
+            <TextView
+                android:id="@+id/productVol"
+                android:text="@={viewModel.productVolume}"
+                style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/lvolume"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lvolume" />
+
+            <TextView
+                android:id="@+id/lproductQuantity"
+                android:text="@={viewModel.productQuantity}"
+                style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/quantity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/quantity" />
+
+            <TextView
+                android:id="@+id/productSell"
+                android:text="@={viewModel.productSell}"
+                style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/lsellPrice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lsellPrice" />
+
+            <TextView
+                android:id="@+id/productBuy"
+                android:text="@={viewModel.productBuy}"
+                style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/lbuyPrice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lbuyPrice" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <CheckBox

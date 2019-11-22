@@ -1,5 +1,7 @@
 package by.nepravsky.sm.data.database.repositoryImpl;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +59,7 @@ public class FormulaRepoImpl implements FormulaRepositories {
                         }
 
                         int time = Integer.parseInt(formulaDBE.getTime());
+                        Log.d("logd", " time " + time);
 
                         return new Formula(
                                 Integer.parseInt(formulaDBE.getId()),
