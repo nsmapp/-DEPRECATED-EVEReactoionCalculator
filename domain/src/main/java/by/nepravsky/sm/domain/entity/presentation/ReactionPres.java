@@ -29,6 +29,7 @@ public class ReactionPres {
         this.matVolume = matVolume;
     }
 
+
     public ItemPres getProduct() {
         return product;
     }
@@ -38,11 +39,19 @@ public class ReactionPres {
     }
 
     public String getMaterialSellPrice() {
-        return StringUtils.formatDouble(materialSellPrice);
+        if(materialSellPrice == 0){
+            return "-";
+        }else {
+            return StringUtils.formatDouble(materialSellPrice);
+        }
     }
 
     public String getMaterialBuyPrice() {
-        return StringUtils.formatDouble(materialBuyPrice);
+        if(materialBuyPrice == 0){
+            return "-";
+        }else {
+            return StringUtils.formatDouble(materialBuyPrice);
+        }
     }
 
     public int getReactionTime() {

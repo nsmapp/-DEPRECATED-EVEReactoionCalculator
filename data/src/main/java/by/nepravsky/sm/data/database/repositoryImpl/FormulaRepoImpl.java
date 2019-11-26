@@ -9,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 import by.nepravsky.sm.data.database.AppDatabase;
 import by.nepravsky.sm.data.database.entity.FormulaDBE;
-import by.nepravsky.sm.data.database.entity.ReactionComponent;
+import by.nepravsky.sm.data.database.entity.ReactionItemDBE;
 import by.nepravsky.sm.domain.entity.Formula;
 import by.nepravsky.sm.domain.entity.ReactionItem;
 import by.nepravsky.sm.domain.repositories.FormulaRepositories;
@@ -20,6 +20,7 @@ public class FormulaRepoImpl implements FormulaRepositories {
 
 
     private AppDatabase database;
+    private Gson gson = new Gson();
 
     @Inject
     public FormulaRepoImpl(AppDatabase database) {
@@ -34,41 +35,65 @@ public class FormulaRepoImpl implements FormulaRepositories {
                     @Override
                     public Formula apply(FormulaDBE formulaDBE) throws Exception {
 
-                        List<ReactionItem> products = new ArrayList<>();
-                        List<ReactionItem> materials= new ArrayList<>();
-
-                        Gson gson = new Gson();
-
-                        ReactionComponent[] materialItems =
-                                gson.fromJson(formulaDBE.getMaterial(), ReactionComponent[].class);
-                        ReactionComponent[] reactionComponents =
-                                gson.fromJson(formulaDBE.getProduct(), ReactionComponent[].class);
-
-                        for (ReactionComponent m: materialItems){
-                            materials.add(new ReactionItem(
-                                    m.getQuantity(),
-                                    m.getTypeID())
-                            );
-                        }
-
-                        for (ReactionComponent p: reactionComponents){
-                            products.add(new ReactionItem(
-                                    p.getQuantity(),
-                                    p.getTypeID())
-                            );
-                        }
-
-                        int time = Integer.parseInt(formulaDBE.getTime());
-                        Log.d("logd", " time " + time);
-
-                        return new Formula(
-                                Integer.parseInt(formulaDBE.getId()),
-                                formulaDBE.getEn(),
-                                materials,
-                                products,
-                                time);
+                        return makeFormula(formulaDBE);
                     }
                 });
+    }
+
+    @Override
+    public Single<List<Formula>> getAllFormuls() {
+        return database.getFormulaDAO()
+                .getAllFormuls()
+                .map(new Function<List<FormulaDBE>, List<Formula>>() {
+                    @Override
+                    public List<Formula> apply(List<FormulaDBE> formulaDBEList) throws Exception {
+
+                        List<Formula> formulaList = new ArrayList<>();
+                        for (FormulaDBE formulaDBE : formulaDBEList){
+                            formulaList.add(makeFormula(formulaDBE));
+                        }
+
+                        return formulaList;
+                    }
+                });
+    }
+
+    private Formula makeFormula(FormulaDBE formulaDBE){
+
+        ReactionItemDBE[] materialItems =
+                mapToReactionItemDBE(formulaDBE.getMaterial());
+        ReactionItemDBE[] productItemDBES =
+                mapToReactionItemDBE(formulaDBE.getProduct());
+
+        ReactionItem products = mapToReactionItems(productItemDBES).get(0);
+        List<ReactionItem> materials = mapToReactionItems(materialItems);
+
+        int time = Integer.parseInt(formulaDBE.getTime());
+
+        return new Formula(
+                Integer.parseInt(formulaDBE.getId()),
+                formulaDBE.getEn(),
+                materials,
+                products,
+                time);
+    }
+
+    private ReactionItemDBE[] mapToReactionItemDBE(String jsonArrayItems){
+        return gson.fromJson(jsonArrayItems, ReactionItemDBE[].class);
+    }
+
+    private List<ReactionItem> mapToReactionItems(ReactionItemDBE[] itemList){
+
+        List<ReactionItem> reactionItemList = new ArrayList<>();
+        for (ReactionItemDBE item: itemList){
+            reactionItemList.add(
+                    new ReactionItem(
+                            item.getQuantity(),
+                            item.getTypeID()
+                    )
+            );
+        }
+        return reactionItemList;
     }
 
 

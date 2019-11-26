@@ -24,9 +24,10 @@ public class ItemPres implements DomainEntity {
     }
 
     public void setRuns(int runs){
-        vol = vol * runs;
-        sellPrice = sellPrice * runs;
-        buyPrice = buyPrice * runs;
+        quantity = quantity * runs;
+        vol = vol * quantity;
+        sellPrice = sellPrice * quantity;
+        buyPrice = buyPrice * quantity;
     }
 
     public int getId() {
@@ -37,24 +38,34 @@ public class ItemPres implements DomainEntity {
         return name;
     }
 
-    public double getVolume() {
-        return vol;
-    }
-
-    public String getVolumeString() {
-        return StringUtils.formatDouble(vol);
-    }
-
-    public double getQuantity() {
-        return quantity;
-    }
-
     public double getSellPrice() {
         return sellPrice;
     }
 
     public double getBuyPrice() {
         return buyPrice;
+    }
+    public double getVolume() {
+        return vol;
+    }
+
+    public double getSellPriceForUnit() {
+        return sellPrice / quantity;
+    }
+
+    public double getBuyPriceForUnit() {
+        return buyPrice / quantity;
+    }
+    public double getVolumeForUnit() {
+        return vol / quantity;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public String getVolumeString() {
+        return StringUtils.formatDouble(vol);
     }
 
     public String getSellPriceString() {

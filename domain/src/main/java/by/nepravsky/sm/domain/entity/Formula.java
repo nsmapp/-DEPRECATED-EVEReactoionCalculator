@@ -7,10 +7,10 @@ public class Formula {
     private int id;
     private String name = "";
     private List<ReactionItem> material;
-    private List<ReactionItem> product;
+    private ReactionItem product;
     private int time = 0;
 
-    public Formula(int id, String name, List<ReactionItem> material, List<ReactionItem> product, int time) {
+    public Formula(int id, String name, List<ReactionItem> material, ReactionItem product, int time) {
         this.id = id;
         this.name = name;
         this.material = material;
@@ -30,7 +30,7 @@ public class Formula {
         return material;
     }
 
-    public List<ReactionItem> getProduct() {
+    public ReactionItem getProduct() {
         return product;
     }
 

@@ -16,6 +16,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 import by.nepravsky.sm.domain.entity.presentation.ReactionPres;
+import by.nepravsky.sm.domain.usecase.reactor.FullReactionUseCase;
 import by.nepravsky.sm.domain.usecase.reactor.SingleReactionUseCase;
 import by.nepravsky.sm.domain.utils.TimeConverter;
 import by.nepravsky.sm.domain.entity.Tax;
@@ -63,6 +64,7 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
     }
 
     @Inject public SingleReactionUseCase singleReaction;
+    @Inject public FullReactionUseCase fullReaction;
     @Inject public TimeConverter timeConverter;
     @Inject public ErrorMessage errorMessage;
     @Inject public Resources resources;

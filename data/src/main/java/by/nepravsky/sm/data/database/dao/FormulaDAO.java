@@ -4,6 +4,8 @@ package by.nepravsky.sm.data.database.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 
+import java.util.List;
+
 import by.nepravsky.sm.data.database.entity.FormulaDBE;
 import io.reactivex.Single;
 
@@ -14,6 +16,10 @@ public interface FormulaDAO {
 
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE en LIKE :name")
     Single<FormulaDBE> getFormuls(String name);
+
+    @Query("SELECT * FROM " + TABLE_NAME)
+    Single<List<FormulaDBE>> getAllFormuls();
+
 
 
 }
