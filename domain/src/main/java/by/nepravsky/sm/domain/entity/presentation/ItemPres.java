@@ -1,7 +1,5 @@
 package by.nepravsky.sm.domain.entity.presentation;
 
-import java.util.Locale;
-
 import by.nepravsky.sm.domain.entity.DomainEntity;
 import by.nepravsky.sm.domain.utils.StringUtils;
 

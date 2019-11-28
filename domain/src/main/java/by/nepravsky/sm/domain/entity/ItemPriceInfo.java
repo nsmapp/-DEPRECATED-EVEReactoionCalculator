@@ -2,10 +2,9 @@ package by.nepravsky.sm.domain.entity;
 
 public class ItemPriceInfo {
 
-    private double sell;
-    private double buy;
-
-    private int typeId;
+    private double sell = 0;
+    private double buy = 0;
+    private int typeId ;
 
     public ItemPriceInfo(double sell, double buy,  int typeId) {
         this.sell = sell;

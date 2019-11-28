@@ -38,10 +38,10 @@ public class ReactionsViewModel extends BaseViewModel<ItemPres> {
 
         imgUrl.set(String.valueOf(entity.getId()));
         typeName.set(entity.getName());
-        sell.set(String.format(Locale.getDefault(),"%,3.2f", entity.getSell()) + " ISK");
-        buy.set(String.format(Locale.getDefault(),"%,3.2f", entity.getBuy()) + " ISK");
-        vol.set(String.format(Locale.getDefault(),"%,3.2f", entity.getVol()) + " m\u00b3");
-        quantity.set(entity.getQuantity() + " unit");
+        sell.set(entity.getSellPriceString());
+        buy.set(entity.getBuyPriceString());
+        vol.set(entity.getVolumeString());
+        quantity.set(String.valueOf(entity.getQuantity()));
     }
 
     public ReactionsViewModel(PublishSubject<BaseClickedModel<ItemPres>> positionCLick) {
