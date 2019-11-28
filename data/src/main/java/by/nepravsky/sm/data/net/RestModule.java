@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 
 import by.nepravsky.sm.data.net.entity.MarketOrder;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

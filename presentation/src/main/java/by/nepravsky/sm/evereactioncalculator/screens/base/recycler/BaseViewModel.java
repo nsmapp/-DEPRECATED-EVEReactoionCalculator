@@ -1,7 +1,8 @@
 package by.nepravsky.sm.evereactioncalculator.screens.base.recycler;
 
 import androidx.lifecycle.ViewModel;
-import by.nepravsky.sm.domain.entity.old.DomainEntity;
+
+import by.nepravsky.sm.domain.entity.DomainEntity;
 
 
 public abstract class BaseViewModel<E extends DomainEntity> extends ViewModel {

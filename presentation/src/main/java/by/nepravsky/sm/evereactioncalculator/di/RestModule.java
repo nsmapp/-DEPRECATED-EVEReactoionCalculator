@@ -15,5 +15,4 @@ public class RestModule {
     public PriceInfoRepository provideOrderRepository(PriceInfoRepoImp orderRepoImp){
         return orderRepoImp;
     }
-
 }

@@ -1,5 +1,7 @@
 package by.nepravsky.sm.data.net.repoimpl;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,46 +26,69 @@ public class PriceInfoRepoImp implements PriceInfoRepository {
     }
 
     @Override
-    public Single<Map<Integer, ItemPriceInfo>> getPriceInfoList(List<String> typeId, final int regionId) {
-        return Observable.fromIterable(typeId)
-                .flatMap(new Function<String, Observable<List<MarketOrder>>>() {
+    public Single<List<ItemPriceInfo>> getPriceInfoList(List<Integer> typeId, final int regionId) {
+        return Single.just(typeId)
+                .flatMap(new Function<List<Integer>, Single<List<ItemPriceInfo>>>() {
                     @Override
-                    public Observable<List<MarketOrder>> apply(String s) throws Exception {
-                        return restModule.getMarketOrder(s, regionId);
-                    }
-                })
-                .flatMap(new Function<List<MarketOrder>, Observable<ItemPriceInfo>>() {
-                    @Override
-                    public Observable<ItemPriceInfo> apply(List<MarketOrder> marketOrders) throws Exception {
+                    public Single<List<ItemPriceInfo>> apply(List<Integer> ids) throws Exception {
 
-                        List<MarketOrder> sellList = new ArrayList<>();
-                        List<MarketOrder> buyList = new ArrayList<>();
-
-                        for(MarketOrder order: marketOrders){
-                            if (order.isBuyOrder()) {
-                                buyList.add(order);
-                            } else {
-                                sellList.add(order);
-                            }
+                        List<Single<List<MarketOrder>>>  singles = new ArrayList<>();
+                        for(int id : ids){
+                            singles.add(restModule.getMarketOrder(id, regionId));
                         }
+                        return Single.zip(singles, new Function<Object[], List<ItemPriceInfo>>() {
+                            @Override
+                            public List<ItemPriceInfo> apply(Object[] objects) throws Exception {
 
-                        MarketOrder buy = Collections.max(buyList);
-                        MarketOrder sell = Collections.min(sellList);
-
-                        ItemPriceInfo priceInfo = new ItemPriceInfo(
-                                sell.getPrice(),
-                                buy.getPrice(),
-                                sell.getTypeId()
-                        );
-                        return Observable.just(priceInfo);
-                    }
-                })
-                .toMap(new Function<ItemPriceInfo, Integer>() {
-                    @Override
-                    public Integer apply(ItemPriceInfo itemPriceInfo) throws Exception {
-                        return itemPriceInfo.getTypeId();
+                                int i = 0;
+                                List<ItemPriceInfo> priceInfo = new ArrayList<>();
+                                for(Object o : objects){
+                                    if (((List<MarketOrder>) o).isEmpty()){
+                                        continue;
+                                    }
+                                    priceInfo.add(mapToDomainEntity((List<MarketOrder>) o));
+                                }
+                                return priceInfo;
+                            }
+                        });
                     }
                 });
+    }
+
+    private ItemPriceInfo mapToDomainEntity(List<MarketOrder> orderList){
+
+        List<MarketOrder> sellList = new ArrayList<>();
+        List<MarketOrder> buyList = new ArrayList<>();
+
+        if(!orderList.isEmpty()){
+            for(MarketOrder order : orderList){
+                if(order.isBuyOrder()){
+                    buyList.add(order);
+                }else {
+                    sellList.add(order);
+                }
+            }
+        }
+
+        double sellPrice, buyPrice;
+
+        if (sellList.isEmpty()){
+            sellPrice = 0;
+        }else{
+            sellPrice = Collections.min(sellList).getPrice();
+        }
+
+        if(buyList.isEmpty()){
+            buyPrice = 0;
+        }else{
+            buyPrice = Collections.max(buyList).getPrice();
+        }
+
+        return new ItemPriceInfo(
+                sellPrice,
+                buyPrice,
+                orderList.get(0).getTypeId()
+        );
     }
 
 
