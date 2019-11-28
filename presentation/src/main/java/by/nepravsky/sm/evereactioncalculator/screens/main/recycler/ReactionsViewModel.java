@@ -1,15 +1,8 @@
 package by.nepravsky.sm.evereactioncalculator.screens.main.recycler;
 
 
-import android.widget.ImageView;
-
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-
-import com.squareup.picasso.Picasso;
-
-import java.util.Locale;
 
 import by.nepravsky.sm.domain.entity.presentation.ItemPres;
 import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseClickedModel;
