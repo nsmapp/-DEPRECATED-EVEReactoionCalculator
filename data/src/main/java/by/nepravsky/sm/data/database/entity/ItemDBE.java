@@ -12,7 +12,7 @@ public class ItemDBE {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    private  String id ="";
+    private  int id;
 
     @NonNull
     @ColumnInfo(name = "ru")
@@ -46,7 +46,7 @@ public class ItemDBE {
     }
 
     @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -70,7 +70,7 @@ public class ItemDBE {
         return volume;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
 

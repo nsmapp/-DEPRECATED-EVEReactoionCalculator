@@ -70,8 +70,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:visibility="@{viewModel.isVisableSettings}"
             android:background="@drawable/border_black_corner0000"
+            android:visibility="@{viewModel.isVisableSettings}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reaction">
@@ -91,6 +91,7 @@
 
             <EditText
                 android:id="@+id/eRuns"
+                style="@style/edittext"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -99,106 +100,50 @@
                 android:inputType="number"
                 android:maxLength="3"
                 android:paddingBottom="8dp"
+                android:selectAllOnFocus="true"
                 android:text="@={viewModel.runs}"
-                style="@style/edittext"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
-                android:selectAllOnFocus="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/eReactionTax" />
 
             <TextView
                 android:id="@+id/runs"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/runs"
-                style="@style/naormalTextView"
                 app:layout_constraintBottom_toBottomOf="@+id/eRuns"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/eRuns" />
 
             <TextView
-                android:id="@+id/brokersFee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/broker_s_fee"
-                style="@style/naormalTextView"
-                app:layout_constraintBottom_toBottomOf="@+id/eBrokersFee"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/eBrokersFee" />
-
-            <TextView
-                android:id="@+id/salesTax"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/sales_tax"
-                style="@style/naormalTextView"
-                app:layout_constraintBottom_toBottomOf="@+id/eSalesTax"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/eSalesTax" />
-
-            <EditText
-                    android:id="@+id/eBrokersFee"
-                    android:layout_width="64dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:inputType="numberDecimal"
-                    android:paddingRight="8dp"
-                    style="@style/edittext"
-                    android:text="@={viewModel.brokersFee}"
-                    android:textColor="@color/textColor"
-                    android:textSize="14sp"
-                    android:selectAllOnFocus="true"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/systems"/>
-
-            <EditText
-                android:id="@+id/eSalesTax"
-                android:layout_width="64dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:ems="10"
-                android:gravity="center"
-                android:inputType="numberDecimal"
-                android:paddingRight="8dp"
-                android:text="@={viewModel.salesTax}"
-                style="@style/edittext"
-                android:textColor="@color/textColor"
-                android:textSize="14sp"
-                android:selectAllOnFocus="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eBrokersFee" />
-
-            <TextView
                 android:id="@+id/solarSysten"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/regions"
-                style="@style/naormalTextView"
                 app:layout_constraintBottom_toBottomOf="@+id/systems"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/systems" />
 
             <TextView
                 android:id="@+id/reactionTax"
+                style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="@string/reaction_tax"
-                style="@style/naormalTextView"
                 app:layout_constraintBottom_toBottomOf="@+id/eReactionTax"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/eReactionTax" />
 
             <EditText
                 android:id="@+id/eReactionTax"
+                style="@style/edittext"
                 android:layout_width="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -206,13 +151,12 @@
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:paddingBottom="8dp"
+                android:selectAllOnFocus="true"
                 android:text="@={viewModel.reactionTax}"
-                style="@style/edittext"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
-                android:selectAllOnFocus="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eSalesTax" />
+                app:layout_constraintTop_toBottomOf="@+id/systems" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -235,12 +179,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
             android:visibility="@{viewModel.progressBar}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/productList" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
@@ -252,7 +196,7 @@
             android:translationY="-2dp"
             android:visibility="@{viewModel.isVisableInformation}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reactionInformation">
 
@@ -261,8 +205,8 @@
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/reaction_time"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lbuyPrice" />
@@ -305,7 +249,7 @@
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/buy_isk"
                 app:layout_constraintStart_toStartOf="parent"
@@ -316,7 +260,7 @@
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:text="@string/sell_isk"
                 app:layout_constraintStart_toStartOf="parent"
@@ -327,8 +271,8 @@
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/volume_of_material"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -351,22 +295,21 @@
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/cost_of_material"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reactionTime" />
+                app:layout_constraintTop_toBottomOf="@+id/lreactionCost" />
 
             <ImageView
                 android:id="@+id/productImage"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                app:url="@{viewModel.productUrl}"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                 />
+                app:layout_constraintTop_toBottomOf="@+id/reactionName"
+                app:url="@{viewModel.productUrl}" />
 
             <TextView
                 android:id="@+id/lvolume"
@@ -395,8 +338,8 @@
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/sell_isk"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productImage" />
@@ -406,55 +349,90 @@
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/buy_isk"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/lsellPrice" />
 
             <TextView
                 android:id="@+id/productVol"
-                android:text="@={viewModel.productVolume}"
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:text="@={viewModel.productVolume}"
                 app:layout_constraintBottom_toBottomOf="@+id/lvolume"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/lvolume" />
 
             <TextView
                 android:id="@+id/lproductQuantity"
-                android:text="@={viewModel.productQuantity}"
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:text="@={viewModel.productQuantity}"
                 app:layout_constraintBottom_toBottomOf="@+id/quantity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/quantity" />
 
             <TextView
                 android:id="@+id/productSell"
-                android:text="@={viewModel.productSell}"
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:text="@={viewModel.productSell}"
                 app:layout_constraintBottom_toBottomOf="@+id/lsellPrice"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/lsellPrice" />
 
             <TextView
                 android:id="@+id/productBuy"
-                android:text="@={viewModel.productBuy}"
                 style="@style/naormalTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                android:text="@={viewModel.productBuy}"
                 app:layout_constraintBottom_toBottomOf="@+id/lbuyPrice"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/lbuyPrice" />
+
+            <TextView
+                android:id="@+id/reactionName"
+                style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="@={viewModel.productName}"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lreactionCost"
+                style="@style/naormalTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/reaction_cost_isk"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reactionTime" />
+
+            <TextView
+                android:id="@+id/reactionCost"
+                style="@style/naormalTextView"
+                android:text="@={viewModel.reactionCost}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/lreactionCost"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lreactionCost" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <CheckBox
@@ -470,6 +448,17 @@
             android:text="@string/reaction_information"
             style="@style/naormalTextView"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <CheckBox
+            android:id="@+id/isFullChain"
+            style="@style/naormalTextView"
+            android:checked="@={viewModel.isFullChain}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text=" full chain"
+            app:layout_constraintStart_toEndOf="@+id/reactionInformation"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 

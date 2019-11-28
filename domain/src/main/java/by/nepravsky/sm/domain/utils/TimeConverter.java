@@ -40,7 +40,6 @@ public class TimeConverter {
             buffer.append(sec).append("sec ");
         }
 
-        Log.d("logdti", "react ti,: " + buffer.toString());
         return buffer.toString();
     }
 }

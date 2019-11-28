@@ -1,11 +1,11 @@
 package by.nepravsky.sm.domain.utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Set;
 import javax.inject.Inject;
-
 import by.nepravsky.sm.domain.entity.Formula;
 import by.nepravsky.sm.domain.entity.ItemInfo;
 import by.nepravsky.sm.domain.entity.ItemPriceInfo;
@@ -23,17 +23,31 @@ public class ReactionUtils {
     public ReactionPres makeReactionPres(
             int reactionTime,
             ItemPres product,
-            List<ItemPres> materialList){
+            List<ItemPres> materialList,
+            List<ItemPres> subProductList,
+            double reactionTax){
 
         double materialSellPrice = 0;
         double materialBuyPrice = 0;
+        double reactionRunsPrice = 0;
         double materialVolume = 0;
+        double tax = reactionTax / 100;
+        boolean isSellZero = false, isBuyZero = false;
 
         for (ItemPres item : materialList){
+            if (item.getBuyPrice() == 0){isBuyZero = true;}
+            if (item.getSellPrice() == 0){isSellZero = true;}
             materialSellPrice = materialSellPrice + item.getSellPrice();
             materialBuyPrice = materialBuyPrice + item.getBuyPrice();
             materialVolume = materialVolume + item.getVolume();
 
+        }
+
+        if (isBuyZero){materialBuyPrice = 0;}
+        if (isSellZero){materialSellPrice = 0;}
+
+        for (ItemPres item: subProductList){
+            reactionRunsPrice = reactionRunsPrice + item.getBuyPrice() * tax;
         }
 
         return  new ReactionPres(
@@ -41,7 +55,8 @@ public class ReactionUtils {
                 materialList,materialSellPrice,
                 materialBuyPrice,
                 reactionTime,
-                materialVolume);
+                materialVolume,
+                reactionRunsPrice);
     }
 
     public List<ItemPres> makeItemPres(List<ReactionItem> reactionItems,
@@ -52,14 +67,16 @@ public class ReactionUtils {
 
         int id;
         for(ReactionItem i : reactionItems){
-            id = i.getTypeID();
+            id = i.getId();
+            int run = i.getReactionQuantity() / i.getQuantity();
             ItemPres itemPres = new ItemPres(
                     id,
                     itemInfoMap.get(id).getName(),
                     itemInfoMap.get(id).getVolume(),
                     i.getQuantity(),
                     priceMap.get(id).getSell(),
-                    priceMap.get(id).getBuy()
+                    priceMap.get(id).getBuy(),
+                    itemInfoMap.get(id).getBasePrice() * run
             );
             itemPresList.add(itemPres);
         }
@@ -68,10 +85,10 @@ public class ReactionUtils {
     }
 
 
-    public List<String> getIdList(List<ReactionItem> reactionItemList) {
-        List<String> idList  = new ArrayList<>();
+    public List<Integer> getIdList(List<ReactionItem> reactionItemList) {
+        List<Integer> idList  = new ArrayList<>();
         for (ReactionItem item : reactionItemList){
-            idList.add(String.valueOf(item.getTypeID()));
+            idList.add(item.getId());
         }
         return idList;
     }
@@ -93,7 +110,32 @@ public class ReactionUtils {
     }
 
     public Boolean isSubProduct(ReactionItem item, Map<Integer, Formula> formulaMap){
-        return formulaMap.containsKey(item.getTypeID());
+        return formulaMap.containsKey(item.getId());
+    }
+
+    public List<ItemPres> colapseItemPres(List<ItemPres> materialPres){
+        List<ItemPres> collapseList = new ArrayList<>();
+        Set<Integer> idSet = new HashSet<>();
+        for (ItemPres item : materialPres){
+            idSet.add(item.getId());
+        }
+
+        for (int i : idSet){
+            ItemPres itemPres = null;
+            for (ItemPres item : materialPres){
+                if (item.getId() == i){
+                    if (itemPres == null){
+                        itemPres = item;
+                    }else {
+                        itemPres.addItemPress(item);
+                    }
+                }
+            }
+            if(itemPres != null){
+                collapseList.add(itemPres);
+            }
+        }
+        return  collapseList;
     }
 
 }

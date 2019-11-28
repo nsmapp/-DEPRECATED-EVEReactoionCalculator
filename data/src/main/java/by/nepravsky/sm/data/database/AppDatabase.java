@@ -11,7 +11,7 @@ import by.nepravsky.sm.data.database.dao.ItemDAO;
 import by.nepravsky.sm.data.database.entity.FormulaDBE;
 import by.nepravsky.sm.data.database.entity.ItemDBE;
 
-@Database(entities = {FormulaDBE.class, ItemDBE.class}, version = 11)
+@Database(entities = {FormulaDBE.class, ItemDBE.class}, version = 13)
 public abstract class AppDatabase extends RoomDatabase {
 
 
@@ -24,9 +24,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
             appDatabase = Room.databaseBuilder(context.getApplicationContext(),
                     AppDatabase.class,
-                    "reactions.dbsqlt")
+                    "reactions")
                     .fallbackToDestructiveMigration()
-                    .createFromAsset("reactions.dbsqlt")
+                    .createFromAsset("reactions")
                     .build();
             return appDatabase;
         }

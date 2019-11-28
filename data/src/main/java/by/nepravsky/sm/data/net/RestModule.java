@@ -33,7 +33,7 @@ public class RestModule {
                 new HttpLoggingInterceptor.Logger() {
                     @Override
                     public void log(String message) {
-                          Log.d("logd interceptor", message);
+//                          Log.d("logd interceptor", message);
                     }
                 }
         );
@@ -61,7 +61,7 @@ public class RestModule {
                 .create(RestApi.class);
     }
 
-    public Single<List<MarketOrder>> getMarketOrder(String typeId, int regionId){
+    public Single<List<MarketOrder>> getMarketOrder(int typeId, int regionId){
         return restApi.getOrders(regionId, typeId);
     }
 

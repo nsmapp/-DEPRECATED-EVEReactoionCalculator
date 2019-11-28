@@ -5,6 +5,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class MarketOrder implements Comparable<MarketOrder> {
 
+    public MarketOrder() {
+    }
+
+    public MarketOrder(boolean isBuyOrder, double price, int typeId) {
+        this.isBuyOrder = isBuyOrder;
+        this.price = price;
+        this.typeId = typeId;
+    }
+
     @SerializedName("duration")
     @Expose
     private long duration;
@@ -13,7 +22,7 @@ public class MarketOrder implements Comparable<MarketOrder> {
     private boolean isBuyOrder;
     @SerializedName("issued")
     @Expose
-    private String issued;
+    private String issued = "";
     @SerializedName("location_id")
     @Expose
     private long locationId;
@@ -28,7 +37,7 @@ public class MarketOrder implements Comparable<MarketOrder> {
     private double price;
     @SerializedName("range")
     @Expose
-    private String range;
+    private String range = "";
     @SerializedName("system_id")
     @Expose
     private int systemId;

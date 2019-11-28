@@ -8,5 +8,5 @@ import io.reactivex.Single;
 
 public interface ItemRepositories {
 
-    Single<Map<Integer, ItemInfo>> getItemList(List<String> idList);
+    Single<Map<Integer, ItemInfo>> getItemList(List<Integer> idList);
 }

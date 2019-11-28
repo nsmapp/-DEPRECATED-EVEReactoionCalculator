@@ -24,7 +24,7 @@ public class ItemRepoImpl implements ItemRepositories {
     }
 
     @Override
-    public Single<Map<Integer, ItemInfo>> getItemList(List<String> idList) {
+    public Single<Map<Integer, ItemInfo>> getItemList(List<Integer> idList) {
         return appDatabase.getItemDAO()
                 .getItemList(idList)
                 .map(new Function<List<ItemDBE>, Map<Integer, ItemInfo>>() {

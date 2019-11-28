@@ -13,7 +13,7 @@ public class FormulaDBE {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    private  String id = "";
+    private  int id;
 
     @NonNull
     @ColumnInfo(name = "ru")
@@ -43,11 +43,11 @@ public class FormulaDBE {
     private String time = "";
 
     @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(@NonNull int id) {
         this.id = id;
     }
 

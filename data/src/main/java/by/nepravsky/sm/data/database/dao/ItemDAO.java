@@ -14,7 +14,7 @@ public interface ItemDAO {
     String TABLE_NAME = "items";
 
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE id IN (:idList)")
-    Single<List<ItemDBE>> getItemList(List<String> idList);
+    Single<List<ItemDBE>> getItemList(List<Integer> idList);
 
 
 }

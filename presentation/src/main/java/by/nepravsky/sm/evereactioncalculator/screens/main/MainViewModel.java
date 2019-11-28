@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
@@ -35,16 +36,16 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
 
     public ObservableField<String> reaction = new ObservableField<>();
     public ObservableField<String> runs = new ObservableField<>("1");
-    public ObservableField<String> brokersFee = new ObservableField<>("0.1");
-    public ObservableField<String> salesTax = new ObservableField<>("1");
     public ObservableField<String> reactionTax = new ObservableField<>("0.1");
 
 
+    public ObservableField<String> productName= new ObservableField<>();
     public ObservableField<String> productVolume= new ObservableField<>();
     public ObservableField<String> productQuantity = new ObservableField<>();
     public ObservableField<String> productSell = new ObservableField<>();
     public ObservableField<String> productBuy = new ObservableField<>();
     public ObservableField<String> reactionTime = new ObservableField<>();
+    public ObservableField<String> reactionCost = new ObservableField<>();
     public ObservableField<String> materialSell = new ObservableField<>();
     public ObservableField<String> materialBuy = new ObservableField<>();
     public ObservableField<String> materialVol = new ObservableField<>();
@@ -52,6 +53,8 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
 
     public ObservableInt isVisableSettings = new ObservableInt(View.GONE);
     public ObservableInt isVisableInformation = new ObservableInt(View.VISIBLE);
+
+    public ObservableBoolean isFullChain = new ObservableBoolean(false);
 
     private int systemId  = 10000002;
     public ReactionsAdapter adapter = new ReactionsAdapter();
@@ -89,14 +92,13 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
     }
 
 
-    private void loadReaction(String reactionName){
+    private void loadReaction(final String reactionName){
 
-        if(validationData()){
-            
+        if(validationData() ){
+
             showProgressBar();
-            Tax tax = new Tax(Double.parseDouble(brokersFee.get()),
-                    Double.parseDouble(salesTax.get()),
-                    Double.parseDouble(reactionTax.get()));
+            double tax = 0;
+            tax = Double.parseDouble(reactionTax.get());
 
             switch (spinnerId.get()){
                 case 0:
@@ -118,44 +120,108 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
 
             int run = Integer.parseInt(runs.get());
 
-            productCreator.get(reactionName, systemId, run, tax)
-                    .subscribe(new Observer<Product>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                            addCompositeDisposable(d);
+            if (isFullChain.get()){
+                fullReaction.get(reactionName, systemId, run, tax)
+                        .subscribe(new Observer<ReactionPres>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                addCompositeDisposable(d);
+                            }
 
-                        }
+                            @Override
+                            public void onNext(ReactionPres reactionPres) {
+                                disableProgressBar();
+                                setReactionInformation(reactionPres);
+                            }
 
-                        @Override
-                        public void onNext(Product product) {
+                            @Override
+                            public void onError(Throwable e) {
+                                disableProgressBar();
+                                router.showToast(errorMessage.getErrorMessage(e.toString()));
+                                Log.d("logde", e.toString());
+                            }
+                            @Override
+                            public void onComplete() {
 
-                            disableProgressBar();
-                            productUrl.set(String.valueOf(reactionPres.getProduct().getId()));
-                            productBuy.set(reactionPres.getProduct().getBuyPriceString());
-                            productSell.set(reactionPres.getProduct().getSellPriceString());
-                            productQuantity.set(String.valueOf(reactionPres.getProduct().getQuantity()));
-                            productVolume.set(reactionPres.getProduct().getVolumeString());
-                            adapter.setEntity(reactionPres.getMaterialList());
-                            materialBuy.set(reactionPres.getMaterialBuyPrice());
-                            materialSell.set(reactionPres.getMaterialSellPrice());
-                            materialVol.set(reactionPres.getMatVolume());
-                            reactionTime.set(timeConverter
-                                     .calculateDMHE(reactionPres.getReactionTime())
-                            );
-                        }
+                            }
+                        });
+            }else {
+                singleReaction.get(reactionName, systemId, run, tax)
+                        .subscribe(new Observer<ReactionPres>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                addCompositeDisposable(d);
+                            }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            disableProgressBar();
-                            router.showToast(errorMessage.getErrorMessage(e.toString()));
-                            Log.d("logde", e.toString());
-                        }
+                            @Override
+                            public void onNext(ReactionPres reactionPres) {
+                                disableProgressBar();
+                                setReactionInformation(reactionPres);
 
-                        @Override
-                        public void onComplete() {
+                            }
 
-                        }
-                    });
+                            @Override
+                            public void onError(Throwable e) {
+                                disableProgressBar();
+                                router.showToast(errorMessage.getErrorMessage(e.toString()));
+                                Log.d("logde", e.toString());
+                            }
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
+            }
+
+//                    .subscribe(new SingleObserver<ReactionInfo>() {
+//                        @Override
+//                        public void onSubscribe(Disposable d) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onSuccess(ReactionInfo reactionInfo) {
+//                            disableProgressBar();
+//                            adapter.setEntity(reactionInfo.getItemList());
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            disableProgressBar();
+//                            router.showToast(errorMessage.getErrorMessage(e.toString()));
+//                            Log.d("logde", e.toString());
+//
+//                        }
+//                    });
+
+//            productCreator.get(reactionName, systemId, run, tax)
+//                    .subscribe(new Observer<Product>() {
+//                        @Override
+//                        public void onSubscribe(Disposable d) {
+//                            addCompositeDisposable(d);
+//                        }
+//
+//                        @Override
+//                        public void onNext(Product product) {
+//
+//                            disableProgressBar();
+//                            setReactionInfo(product);
+//                            productsCach.addLast(product);
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//
+//                            disableProgressBar();
+//                            router.showToast(errorMessage.getErrorMessage(e.toString()));
+//                            Log.d("logde", e.toString());
+//                        }
+//
+//                        @Override
+//                        public void onComplete() {
+//
+//                        }
+//                    });
 
         }
     }
@@ -178,6 +244,23 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
 //        reactionTime.set(timeConverter.calculateDMHE(product.getBuildingTime()));
 //    }
 
+    private void setReactionInformation(ReactionPres reactionPres){
+        productName.set(reactionPres.getProduct().getName());
+        productUrl.set(String.valueOf(reactionPres.getProduct().getId()));
+        productBuy.set(reactionPres.getProduct().getBuyPriceString());
+        productSell.set(reactionPres.getProduct().getSellPriceString());
+        productQuantity.set(String.valueOf(reactionPres.getProduct().getQuantity()));
+        productVolume.set(reactionPres.getProduct().getVolumeString());
+        adapter.setEntity(reactionPres.getMaterialList());
+        reactionCost.set(reactionPres.getReactiomCost());
+        materialBuy.set(reactionPres.getMaterialBuyPrice());
+        materialSell.set(reactionPres.getMaterialSellPrice());
+        materialVol.set(reactionPres.getMatVolume());
+        reactionTime.set(timeConverter
+                .calculateDMHE(reactionPres.getReactionTime())
+        );
+    }
+
     private boolean validationData(){
 
         if (TextUtils.isEmpty(reaction.get())){
@@ -188,14 +271,7 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
             router.showToast(resources.getString(R.string.runs_not_filled));
             return false;
         }
-        if (!NumberValidator.isDouble(brokersFee.get())){
-            router.showToast(resources.getString(R.string.brokers_fee_not_correct));
-            return false;
-        }
-        if (!NumberValidator.isDouble(salesTax.get())){
-            router.showToast(resources.getString(R.string.salex_tax_not_correct));
-            return false;
-        }
+
         if (!NumberValidator.isDouble(reactionTax.get())){
             router.showToast(resources.getString(R.string.reaction_tax_not_correct));
             return false;

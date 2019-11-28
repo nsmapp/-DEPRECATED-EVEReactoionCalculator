@@ -25,7 +25,7 @@ public class ReactionItem {
         return quantity;
     }
 
-    public int getTypeID() {
+    public int getId() {
         return typeID;
     }
 }

@@ -5,7 +5,7 @@ import java.util.Locale;
 import by.nepravsky.sm.domain.entity.DomainEntity;
 import by.nepravsky.sm.domain.utils.StringUtils;
 
-public class ItemPres implements DomainEntity {
+public class ItemPres implements DomainEntity, Comparable<ItemPres> {
 
     private int id;
     private String name = "";
@@ -13,8 +13,9 @@ public class ItemPres implements DomainEntity {
     private double quantity;
     private double sellPrice;
     private double buyPrice;
+    private double basePrice;
 
-    public ItemPres(int id, String name, double vol, double quantity, double sellPrice, double buyPrice) {
+    public ItemPres(int id, String name, double vol, double quantity, double sellPrice, double buyPrice, double basePrice) {
         this.id = id;
         this.name = name;
         this.vol = vol * quantity;
@@ -28,6 +29,13 @@ public class ItemPres implements DomainEntity {
         vol = vol * quantity;
         sellPrice = sellPrice * quantity;
         buyPrice = buyPrice * quantity;
+    }
+
+    public void addItemPress(ItemPres itemPres){
+        this.vol = this.vol + itemPres.getVolume();
+        this.quantity = this.quantity + itemPres.getQuantity();
+        this.sellPrice = this.sellPrice + itemPres.getSellPrice();
+        this.buyPrice = this.buyPrice + itemPres.getBuyPrice();
     }
 
     public int getId() {
@@ -74,5 +82,14 @@ public class ItemPres implements DomainEntity {
 
     public String getBuyPriceString() {
         return StringUtils.formatDouble(buyPrice);
+    }
+
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    @Override
+    public int compareTo(ItemPres o) {
+        return Integer.compare(o.id, this.id);
     }
 }

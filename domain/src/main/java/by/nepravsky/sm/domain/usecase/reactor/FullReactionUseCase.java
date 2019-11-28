@@ -1,9 +1,14 @@
 package by.nepravsky.sm.domain.usecase.reactor;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -22,6 +27,7 @@ import by.nepravsky.sm.domain.utils.ReactionUtils;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Function7;
+import io.reactivex.functions.Function8;
 
 public class FullReactionUseCase extends BaseUseCase {
 
@@ -42,7 +48,10 @@ public class FullReactionUseCase extends BaseUseCase {
 
     }
 
-    public Observable<ReactionPres> get(final String reactionName, final int regionId, final int runs){
+    public Observable<ReactionPres> get(final String reactionName,
+                                        final int regionId,
+                                        final int runs,
+                                        final double reactionTax){
 
         return getFormula.getAll()
                 .subscribeOn(executionThread)
@@ -65,8 +74,10 @@ public class FullReactionUseCase extends BaseUseCase {
 
                         int reactionTime = 0;
                         List<ReactionItem> materialList = new ArrayList<>();
-                        List<Formula> formulasList = new ArrayList<>();
+                        List<ReactionItem> subProductList = new ArrayList<>();
+
                         List<Formula> subFormulaList = new ArrayList<>();
+                        List<Formula> formulasList = new ArrayList<>();
 
                         formula.getProduct().initRuns(runs);
                         formulasList.add(formula);
@@ -83,12 +94,14 @@ public class FullReactionUseCase extends BaseUseCase {
 
                                     if (reactionUtils.isSubProduct(material, formulaMap)){
 
-                                        Formula subProductFormula = formulaMap.get(material.getTypeID());
+                                        Formula subProductFormula = formulaMap.get(material.getId());
                                         double quantity = material.getQuantity() * run;
                                         double formulaQuantity = subProductFormula.getProduct().getQuantity();
                                         int subRun = (int) Math.ceil(quantity / formulaQuantity);
+
                                         subProductFormula.getProduct().initRuns(subRun);
                                         subFormulaList.add(subProductFormula);
+                                        subProductList.add(material);
                                     }else {
                                         material.initRuns(run);
                                         materialList.add(material);
@@ -102,21 +115,24 @@ public class FullReactionUseCase extends BaseUseCase {
                             subFormulaList.clear();
                         }while (!formulasList.isEmpty());
 
+
                         Observable productObservable = Observable.just(formula.getProduct());
                         Observable materialListObservable = Observable.just(materialList);
+                        Observable subProductListObservable = Observable.just(subProductList);
                         Observable reactionTimeObservable = Observable.just(reactionTime);
 
-                        final List<String> productIdList = new ArrayList<>();
-                        List<String> materialIdList = new ArrayList<>();
-                        productIdList.add(String.valueOf(formula.getProduct().getTypeID()));
-                        materialIdList = reactionUtils.getIdList(materialList);
+                        List<Integer> productIdList = new ArrayList<>();
+                        productIdList.add(formula.getProduct().getId());
+                        productIdList.addAll(reactionUtils.getIdList(subProductList));
+                        List<Integer> materialIdList = reactionUtils.getIdList(materialList);
+
 
                         Observable<Map<Integer, ItemInfo>> productMapObservable = getItemMap
                                 .getAsync(productIdList);
                         Observable<Map<Integer, ItemInfo>> materialMapObservable = getItemMap
                                 .getAsync(materialIdList);
 
-                        final Observable<Map<Integer, ItemPriceInfo>> productPriceObservable
+                        Observable<Map<Integer, ItemPriceInfo>> productPriceObservable
                                 = getItemPriceMap.getAsync(productIdList, regionId);
                         Observable<Map<Integer, ItemPriceInfo>> materialPriceObservable
                                 = getItemPriceMap.getAsync(materialIdList, regionId);
@@ -125,13 +141,15 @@ public class FullReactionUseCase extends BaseUseCase {
                         Observable zip = Observable.zip(
                                 productObservable,
                                 materialListObservable,
+                                subProductListObservable,
                                 reactionTimeObservable,
                                 productMapObservable,
                                 materialMapObservable,
                                 productPriceObservable,
                                 materialPriceObservable,
-                                new Function7<
+                                new Function8<
                                         ReactionItem,
+                                        List<ReactionItem>,
                                         List<ReactionItem>,
                                         Integer,
                                         Map<Integer, ItemInfo>,
@@ -142,6 +160,7 @@ public class FullReactionUseCase extends BaseUseCase {
                                     @Override
                                     public ReactionPres apply(ReactionItem product,
                                                               List<ReactionItem> materialList,
+                                                              List<ReactionItem> subProductList,
                                                               Integer reactionTime,
                                                               Map<Integer, ItemInfo> productInfo,
                                                               Map<Integer, ItemInfo> materialInfo,
@@ -151,25 +170,38 @@ public class FullReactionUseCase extends BaseUseCase {
 
 
                                         ItemPres productPres = new ItemPres(
-                                                product.getTypeID(),
-                                                formula.getName(),
-                                                productInfo.get(product.getTypeID()).getVolume(),
+                                                product.getId(),
+                                                productInfo.get(product.getId()).getName(),
+                                                productInfo.get(product.getId()).getVolume(),
                                                 product.getQuantity(),
-                                                productPrice.get(product.getTypeID()).getSell(),
-                                                productPrice.get(product.getTypeID()).getBuy()
+                                                productPrice.get(product.getId()).getSell(),
+                                                productPrice.get(product.getId()).getBuy(),
+                                                productInfo.get(product.getId()).getBasePrice()
 
                                         );
 
                                         List<ItemPres> materialListPres = reactionUtils.makeItemPres(
                                                 materialList,
                                                 materialInfo,
-                                                materialPrice);
+                                                materialPrice
+                                        );
+                                        subProductList.add(product);
+                                        List<ItemPres> subProductListPres = reactionUtils.makeItemPres(
+                                                subProductList,
+                                                productInfo,
+                                                productPrice
+                                        );
 
+                                        materialListPres = reactionUtils.colapseItemPres(materialListPres);
+                                        Collections.sort(materialListPres);
 
                                         return reactionUtils.makeReactionPres(
                                                 reactionTime,
                                                 productPres,
-                                                materialListPres);
+                                                materialListPres,
+                                                subProductListPres,
+                                                reactionTax
+                                        );
 
                                     }
                                 }

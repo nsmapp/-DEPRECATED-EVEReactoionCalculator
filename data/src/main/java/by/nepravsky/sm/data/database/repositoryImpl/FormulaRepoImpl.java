@@ -71,7 +71,7 @@ public class FormulaRepoImpl implements FormulaRepositories {
         int time = Integer.parseInt(formulaDBE.getTime());
 
         return new Formula(
-                Integer.parseInt(formulaDBE.getId()),
+                formulaDBE.getId(),
                 formulaDBE.getEn(),
                 materials,
                 products,
