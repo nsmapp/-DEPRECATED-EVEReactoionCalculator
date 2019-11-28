@@ -4,40 +4,33 @@ import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
-
-import com.squareup.picasso.Picasso;
-
-import java.util.Locale;
-
+import java.util.LinkedList;
 import javax.inject.Inject;
+import by.nepravsky.sm.domain.entity.presentation.ItemPres;
 import by.nepravsky.sm.domain.entity.presentation.ReactionPres;
 import by.nepravsky.sm.domain.usecase.reactor.FullReactionUseCase;
 import by.nepravsky.sm.domain.usecase.reactor.SingleReactionUseCase;
 import by.nepravsky.sm.domain.utils.TimeConverter;
-import by.nepravsky.sm.domain.entity.Tax;
 import by.nepravsky.sm.evereactioncalculator.R;
 import by.nepravsky.sm.evereactioncalculator.app.App;
 import by.nepravsky.sm.evereactioncalculator.screens.base.activity.BaseViewModel;
+import by.nepravsky.sm.evereactioncalculator.screens.base.recycler.BaseClickedModel;
 import by.nepravsky.sm.evereactioncalculator.screens.main.recycler.ReactionsAdapter;
 import by.nepravsky.sm.evereactioncalculator.utils.ErrorMessage;
 import by.nepravsky.sm.domain.utils.NumberValidator;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class MainViewModel extends BaseViewModel<MainRouter> {
 
     public ObservableInt spinnerId = new ObservableInt();
-
     public ObservableField<String> reaction = new ObservableField<>();
     public ObservableField<String> runs = new ObservableField<>("1");
     public ObservableField<String> reactionTax = new ObservableField<>("0.1");
-
 
     public ObservableField<String> productName= new ObservableField<>();
     public ObservableField<String> productVolume= new ObservableField<>();
@@ -53,12 +46,11 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
 
     public ObservableInt isVisableSettings = new ObservableInt(View.GONE);
     public ObservableInt isVisableInformation = new ObservableInt(View.VISIBLE);
-
     public ObservableBoolean isFullChain = new ObservableBoolean(false);
 
     private int systemId  = 10000002;
     public ReactionsAdapter adapter = new ReactionsAdapter();
-//    public LinkedList<Product> productsCach = new LinkedList<>();
+    public LinkedList<ReactionPres> productsCach = new LinkedList<>();
 
 
     @Override
@@ -74,19 +66,18 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
 
     public MainViewModel() {
 
-//        addCompositeDisposable(
-//                adapter.observItemClick()
-//                        .subscribe(new Consumer<BaseClickedModel<FormulaComponent>>() {
-//                            @Override
-//                            public void accept(BaseClickedModel<FormulaComponent> formulaComponent) throws Exception {
-//                                loadReaction(formulaComponent.getEntity().getName());
-//                            }
-//                        })
-//        );
+        addCompositeDisposable(
+                adapter.observItemClick()
+                        .subscribe(new Consumer<BaseClickedModel<ItemPres>>() {
+                            @Override
+                            public void accept(BaseClickedModel<ItemPres> itemPresModel) throws Exception {
+                                loadReaction(itemPresModel.getEntity().getName());
+                            }
+                        })
+        );
     }
 
     public void searchOnClick(){
-
         router.closeKeyboard();
         loadReaction(reaction.get());
     }
@@ -97,8 +88,7 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
         if(validationData() ){
 
             showProgressBar();
-            double tax = 0;
-            tax = Double.parseDouble(reactionTax.get());
+            double tax = Double.parseDouble(reactionTax.get());
 
             switch (spinnerId.get()){
                 case 0:
@@ -138,12 +128,9 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
                             public void onError(Throwable e) {
                                 disableProgressBar();
                                 router.showToast(errorMessage.getErrorMessage(e.toString()));
-                                Log.d("logde", e.toString());
                             }
                             @Override
-                            public void onComplete() {
-
-                            }
+                            public void onComplete() {}
                         });
             }else {
                 singleReaction.get(reactionName, systemId, run, tax)
@@ -152,99 +139,28 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
                             public void onSubscribe(Disposable d) {
                                 addCompositeDisposable(d);
                             }
-
                             @Override
                             public void onNext(ReactionPres reactionPres) {
                                 disableProgressBar();
                                 setReactionInformation(reactionPres);
-
                             }
-
                             @Override
                             public void onError(Throwable e) {
                                 disableProgressBar();
                                 router.showToast(errorMessage.getErrorMessage(e.toString()));
-                                Log.d("logde", e.toString());
                             }
                             @Override
-                            public void onComplete() {
-
-                            }
+                            public void onComplete() {}
                         });
             }
 
-//                    .subscribe(new SingleObserver<ReactionInfo>() {
-//                        @Override
-//                        public void onSubscribe(Disposable d) {
-//
-//                        }
-//
-//                        @Override
-//                        public void onSuccess(ReactionInfo reactionInfo) {
-//                            disableProgressBar();
-//                            adapter.setEntity(reactionInfo.getItemList());
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//                            disableProgressBar();
-//                            router.showToast(errorMessage.getErrorMessage(e.toString()));
-//                            Log.d("logde", e.toString());
-//
-//                        }
-//                    });
-
-//            productCreator.get(reactionName, systemId, run, tax)
-//                    .subscribe(new Observer<Product>() {
-//                        @Override
-//                        public void onSubscribe(Disposable d) {
-//                            addCompositeDisposable(d);
-//                        }
-//
-//                        @Override
-//                        public void onNext(Product product) {
-//
-//                            disableProgressBar();
-//                            setReactionInfo(product);
-//                            productsCach.addLast(product);
-//                        }
-//
-//                        @Override
-//                        public void onError(Throwable e) {
-//
-//                            disableProgressBar();
-//                            router.showToast(errorMessage.getErrorMessage(e.toString()));
-//                            Log.d("logde", e.toString());
-//                        }
-//
-//                        @Override
-//                        public void onComplete() {
-//
-//                        }
-//                    });
 
         }
     }
 
-//    protected void setReactionInfo(Product product){
-//
-//        adapter.setEntity(product.getComponentsList());
-//        materialBuy.set(
-//                String.format(Locale.getDefault(),
-//                        "%,3.2f",
-//                        product.getMaterialBuy()) + " ISK");
-//        materialSell.set(
-//                String.format(Locale.getDefault(),
-//                        "%,3.2f",
-//                        product.getMaterialSell()) + " ISK");
-//        materialVol.set(String.format(Locale.getDefault(),
-//                "%,3.2f",
-//                product.getMaterialVol())  + " m\u00b3");
-//
-//        reactionTime.set(timeConverter.calculateDMHE(product.getBuildingTime()));
-//    }
 
-    private void setReactionInformation(ReactionPres reactionPres){
+
+    public void setReactionInformation(ReactionPres reactionPres){
         productName.set(reactionPres.getProduct().getName());
         productUrl.set(String.valueOf(reactionPres.getProduct().getId()));
         productBuy.set(reactionPres.getProduct().getBuyPriceString());
@@ -256,9 +172,8 @@ public class MainViewModel extends BaseViewModel<MainRouter> {
         materialBuy.set(reactionPres.getMaterialBuyPrice());
         materialSell.set(reactionPres.getMaterialSellPrice());
         materialVol.set(reactionPres.getMatVolume());
-        reactionTime.set(timeConverter
-                .calculateDMHE(reactionPres.getReactionTime())
-        );
+        reactionTime.set(timeConverter.calculateDMHE(reactionPres.getReactionTime()));
+        productsCach.addLast(reactionPres);
     }
 
     private boolean validationData(){

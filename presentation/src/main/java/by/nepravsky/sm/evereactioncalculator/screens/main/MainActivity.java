@@ -111,7 +111,7 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel,
 
             if (viewModel.productsCach.size() > 1) {
                 viewModel.productsCach.removeLast();
-                viewModel.setReactionInfo(viewModel.productsCach.getLast());
+                viewModel.setReactionInformation(viewModel.productsCach.getLast());
 
             }
         }

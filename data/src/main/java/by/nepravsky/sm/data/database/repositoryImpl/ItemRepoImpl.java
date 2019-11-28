@@ -34,7 +34,7 @@ public class ItemRepoImpl implements ItemRepositories {
                         Map<Integer, ItemInfo> itemMap = new HashMap<>();
                         for(ItemDBE item : items){
                             ItemInfo domainItemInfo = new ItemInfo(
-                                    Integer.valueOf(item.getId()),
+                                    item.getId(),
                                     item.getEn(),
                                     item.getVolume(),
                                     item.getBasePrice()
