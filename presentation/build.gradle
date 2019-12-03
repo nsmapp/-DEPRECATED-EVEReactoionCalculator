@@ -8,8 +8,8 @@ android {
         applicationId "by.nepravsky.sm.evereactioncalculator"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 10117
-        versionName "1.1.7"
+        versionCode 10221
+        versionName "1.2.1"
     }
     buildTypes {
         release {
