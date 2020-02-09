@@ -9,7 +9,6 @@ import by.nepravsky.sm.domain.executors.PostExecutionThread;
 import by.nepravsky.sm.domain.repositories.FormulaRepositories;
 import io.reactivex.Observable;
 
-
 public class GetFormulaUseCase extends BaseUseCase{
 
     private FormulaRepositories formulaRepositories;

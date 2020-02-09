@@ -160,6 +160,10 @@
     <string name="reaction_cost_isk">Reaction cost, ISK</string>
     <string name="eve_online_and_the_eve_logo_are_the_registered_trademarks_of_ccp_hf_all_rights_are_reserved_worldwide_all_other_trademarks_are_the_property_of_their_respective_owners_eve_online_the_eve_logo_eve_and_all_associated_logos_and_designs_are_the_intellectual_property_of_ccp_hf_all_artwork_screenshots_characters_vehicles_storylines_world_facts_or_other_recognizable_features_of_the_intellectual_property_relating_to_these_trademarks_are_likewise_the_intellectual_property_of_ccp_hf_ccp_hf_ccp_is_in_no_way_responsible_for_the_content_on_or_functioning_of_this_app_nor_can_it_be_liable_for_any_damage_arising_from_the_use_of_this_app">EVE Online and the EVE logo are the registered trademarks of CCP hf. All rights are reserved worldwide. All other trademarks are the property of their respective owners. EVE Online, the EVE logo, EVE and all associated logos and designs are the intellectual property of CCP hf. All artwork, screenshots, characters, vehicles, storylines, world facts or other recognizable features of the intellectual property relating to these trademarks are likewise the intellectual property of CCP hf. CCP hf. CCP is in no way responsible for the content on or functioning of this app, nor can it be liable for any damage arising from the use of this app.</string>
     <string name="contacts">Contacts:</string>
+    <string name="all">All</string>
+    <string name="boosters">Boosters</string>
+    <string name="fullerites">Tech 3</string>
+    <string name="composite">Tech 2</string>
 
 
 </resources>

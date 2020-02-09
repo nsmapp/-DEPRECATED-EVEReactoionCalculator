@@ -9,9 +9,11 @@ import java.util.List;
 import javax.inject.Inject;
 import by.nepravsky.sm.data.database.AppDatabase;
 import by.nepravsky.sm.data.database.entity.FormulaDBE;
+import by.nepravsky.sm.data.database.entity.FormulaNameDBE;
 import by.nepravsky.sm.data.database.entity.ReactionItemDBE;
 import by.nepravsky.sm.domain.entity.Formula;
 import by.nepravsky.sm.domain.entity.ReactionItem;
+import by.nepravsky.sm.domain.entity.presentation.FormulaName;
 import by.nepravsky.sm.domain.repositories.FormulaRepositories;
 import io.reactivex.Single;
 import io.reactivex.functions.Function;
@@ -58,6 +60,60 @@ public class FormulaRepoImpl implements FormulaRepositories {
                 });
     }
 
+    @Override
+    public Single<List<FormulaName>> getBoosters() {
+        return database.getFormulaDAO()
+                .getBoostersNames()
+                .map(new Function<List<FormulaNameDBE>, List<FormulaName>>() {
+                    @Override
+                    public List<FormulaName> apply(List<FormulaNameDBE> list) throws Exception {
+                        List<FormulaName> foemulas = new ArrayList<FormulaName>();
+                        for (FormulaNameDBE i : list){
+                            foemulas.add(makeFormulaName(i));
+                        }
+                        return foemulas;
+                    }
+                });
+    }
+
+    @Override
+    public Single<List<FormulaName>> getFullerites() {
+        return database.getFormulaDAO()
+                .getFulleriteNames()
+                .map(new Function<List<FormulaNameDBE>, List<FormulaName>>() {
+                    @Override
+                    public List<FormulaName> apply(List<FormulaNameDBE> list) throws Exception {
+                        List<FormulaName> foemulas = new ArrayList<FormulaName>();
+                        for (FormulaNameDBE i : list){
+                            foemulas.add(makeFormulaName(i));
+                        }
+                        return foemulas;
+                    }
+                });
+    }
+
+    @Override
+    public Single<List<FormulaName>> getAllComposites() {
+        return database.getFormulaDAO()
+                .getCompositeNames()
+                .map(new Function<List<FormulaNameDBE>, List<FormulaName>>() {
+                    @Override
+                    public List<FormulaName> apply(List<FormulaNameDBE> list) throws Exception {
+                        List<FormulaName> foemulas = new ArrayList<FormulaName>();
+                        for (FormulaNameDBE i : list){
+                            foemulas.add(makeFormulaName(i));
+                        }
+                        return foemulas;
+                    }
+                });
+    }
+
+
+    private FormulaName makeFormulaName(FormulaNameDBE dbe){
+        return new FormulaName(
+                        dbe.getId(),
+                        dbe.getName());
+    }
     private Formula makeFormula(FormulaDBE formulaDBE){
 
         ReactionItemDBE[] materialItems =

@@ -15,6 +15,9 @@ public class FormulaDBE {
     @ColumnInfo(name = "id")
     private  int id;
 
+    @ColumnInfo(name = "type")
+    private int type = 0;
+
     @NonNull
     @ColumnInfo(name = "ru")
     private String ru = "";
@@ -107,6 +110,12 @@ public class FormulaDBE {
         this.time = time;
     }
 
+    public int getType() {
+        return type;
+    }
 
+    public void setType(int type) {
+        this.type = type;
+    }
 }
 

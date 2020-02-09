@@ -1,24 +1,20 @@
 package by.nepravsky.sm.evereactioncalculator.screens.main;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import by.nepravsky.sm.evereactioncalculator.R;
 import by.nepravsky.sm.evereactioncalculator.screens.base.activity.BaseMVVMActivity;
 import by.nepravsky.sm.evereactioncalculator.databinding.ActivityMainBinding;
@@ -46,27 +42,24 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel,
 
     public static long pressedTime;
 
-
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AutoCompleteTextView reactions = findViewById(R.id.reaction);
-        ArrayAdapter<String> reactionAdapter = new ArrayAdapter<>(this,
-                R.layout.item_list_simple_text,
-                getResources().getStringArray(R.array.reactions));
-        reactions.setAdapter(reactionAdapter);
-
-        Spinner spinner = findViewById(R.id.systems);
+        binding.reaction.setThreshold(0);
         ArrayAdapter<String> systemList = new ArrayAdapter<>(this, R.layout.item_list_simple_text, getResources()
         .getStringArray(R.array.regions));
-        spinner.setAdapter(systemList);
+        binding.systems.setAdapter(systemList);
 
         binding.productList.setLayoutManager(new LinearLayoutManager(this));
         binding.reaction.setOnEditorActionListener(doneEvent);
 
+        binding.reaction.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){binding.reaction.showDropDown();}
+            }
+        });
 
     }
 
@@ -93,10 +86,8 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel,
     private final AutoCompleteTextView.OnEditorActionListener doneEvent = new AutoCompleteTextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
             if (actionId == EditorInfo.IME_ACTION_DONE){
                 viewModel.searchOnClick();
-
             }
             return false;
         }
@@ -118,6 +109,4 @@ public class MainActivity extends BaseMVVMActivity<MainViewModel,
 
         pressedTime = System.currentTimeMillis();
     }
-
-
 }

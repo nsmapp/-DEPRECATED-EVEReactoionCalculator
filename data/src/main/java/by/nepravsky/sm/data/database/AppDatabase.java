@@ -9,9 +9,10 @@ import androidx.room.RoomDatabase;
 import by.nepravsky.sm.data.database.dao.FormulaDAO;
 import by.nepravsky.sm.data.database.dao.ItemDAO;
 import by.nepravsky.sm.data.database.entity.FormulaDBE;
+import by.nepravsky.sm.data.database.entity.FormulaNameDBE;
 import by.nepravsky.sm.data.database.entity.ItemDBE;
 
-@Database(entities = {FormulaDBE.class, ItemDBE.class}, version = 13)
+@Database(entities = {FormulaDBE.class, ItemDBE.class }, version = 14)
 public abstract class AppDatabase extends RoomDatabase {
 
 

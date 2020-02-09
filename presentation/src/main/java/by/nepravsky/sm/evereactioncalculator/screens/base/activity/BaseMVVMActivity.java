@@ -13,7 +13,7 @@ public abstract class BaseMVVMActivity<
         R extends BaseRouter> extends BaseActivity{
 
     protected VM viewModel;
-    protected B binding;
+    public B binding;
     protected R router;
 
     public abstract VM provideViewModel();

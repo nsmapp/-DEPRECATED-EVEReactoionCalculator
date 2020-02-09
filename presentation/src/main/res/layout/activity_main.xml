@@ -14,30 +14,31 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
         android:background="@color/background_white"
         tools:context=".screens.main.MainActivity">
 
 
         <AutoCompleteTextView
-                android:id="@+id/reaction"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:hint="@string/reaction"
-                style="@style/edittext"
-                android:textAlignment="viewStart"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:maxLines="3"
-                android:selectAllOnFocus="true"
-                android:text="@={viewModel.reaction}"
-                app:layout_constraintEnd_toStartOf="@+id/search"
-                app:layout_constraintStart_toEndOf="@+id/menu"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textCursorDrawable="@null"
-                />
+            android:id="@+id/reaction"
+            style="@style/edittext"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="2dp"
+            android:hint="@string/reaction"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:onClick="@{(v)-> viewModel.showDropDownMenu()}"
+            android:selectAllOnFocus="true"
+            android:text="@={viewModel.reaction}"
+            android:textAlignment="viewStart"
+            android:textCursorDrawable="@null"
+            android:dropDownSelector="@drawable/border_black_corner0000"
+            app:layout_constraintEnd_toStartOf="@+id/search"
+            app:layout_constraintStart_toEndOf="@+id/menu"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/menu"
@@ -63,403 +64,483 @@
             app:layout_constraintTop_toTopOf="@+id/reaction"
             app:srcCompat="@drawable/icon_enter" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/border_black_corner0000"
-            android:visibility="@{viewModel.isVisableSettings}"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/reaction">
 
-            <Spinner
-                android:id="@+id/systems"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:dropDownSelector="@android:drawable/arrow_down_float"
-
-                android:padding="6dp"
-                android:selectedItemPosition="@={viewModel.spinnerId}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/eRuns"
-                style="@style/edittext"
-                android:layout_width="64dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:inputType="number"
-                android:maxLength="3"
-                android:paddingBottom="8dp"
-                android:selectAllOnFocus="true"
-                android:text="@={viewModel.runs}"
-                android:textColor="@color/textColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eReactionTax" />
-
-            <TextView
-                android:id="@+id/runs"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/runs"
-                app:layout_constraintBottom_toBottomOf="@+id/eRuns"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/eRuns" />
-
-            <TextView
-                android:id="@+id/solarSysten"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/regions"
-                app:layout_constraintBottom_toBottomOf="@+id/systems"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/systems" />
-
-            <TextView
-                android:id="@+id/reactionTax"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/reaction_tax"
-                app:layout_constraintBottom_toBottomOf="@+id/eReactionTax"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/eReactionTax" />
-
-            <EditText
-                android:id="@+id/eReactionTax"
-                style="@style/edittext"
-                android:layout_width="64dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:ems="10"
-                android:gravity="center"
-                android:inputType="numberDecimal"
-                android:paddingBottom="8dp"
-                android:selectAllOnFocus="true"
-                android:text="@={viewModel.reactionTax}"
-                android:textColor="@color/textColor"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/systems" />
+                android:orientation="vertical">
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/border_black_corner0000"
+                    android:visibility="@{viewModel.isVisableSettings}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/productList"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:adapter="@{viewModel.adapter}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+                    <Spinner
+                        android:id="@+id/systems"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:dropDownSelector="@android:drawable/arrow_down_float"
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:visibility="@{viewModel.progressBar}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                        android:padding="6dp"
+                        android:selectedItemPosition="@={viewModel.spinnerId}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/border_green_cor0111"
-            android:translationY="-2dp"
-            android:visibility="@{viewModel.isVisableInformation}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reactionInformation">
+                    <EditText
+                        android:id="@+id/eRuns"
+                        style="@style/edittext"
+                        android:layout_width="64dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:paddingBottom="8dp"
+                        android:selectAllOnFocus="true"
+                        android:text="@={viewModel.runs}"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/eReactionTax" />
 
-            <TextView
-                android:id="@+id/reactionTime"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/reaction_time"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lbuyPrice" />
+                    <TextView
+                        android:id="@+id/runs"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/runs"
+                        app:layout_constraintBottom_toBottomOf="@+id/eRuns"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/eRuns" />
 
-            <TextView
-                android:id="@+id/eReactionTime"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@={viewModel.reactionTime}"
-                app:layout_constraintBottom_toBottomOf="@+id/reactionTime"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/reactionTime" />
+                    <TextView
+                        android:id="@+id/solarSysten"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/regions"
+                        app:layout_constraintBottom_toBottomOf="@+id/systems"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/systems" />
 
-            <TextView
-                android:id="@+id/eMaterialBuy"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@={viewModel.materialBuy}"
-                app:layout_constraintBottom_toBottomOf="@+id/materialBuy"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/materialBuy" />
+                    <TextView
+                        android:id="@+id/reactionTax"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/reaction_tax"
+                        app:layout_constraintBottom_toBottomOf="@+id/eReactionTax"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/eReactionTax" />
 
-            <TextView
-                android:id="@+id/eMaterialSell"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@={viewModel.materialSell}"
-                app:layout_constraintBottom_toBottomOf="@+id/materialsell"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/materialsell" />
+                    <EditText
+                        android:id="@+id/eReactionTax"
+                        style="@style/edittext"
+                        android:layout_width="64dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:ems="10"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:paddingBottom="8dp"
+                        android:selectAllOnFocus="true"
+                        android:text="@={viewModel.reactionTax}"
+                        android:textColor="@color/textColor"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/systems" />
 
-            <TextView
-                android:id="@+id/materialBuy"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/buy_isk"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialsell" />
+                    <ToggleButton
+                        android:id="@+id/toggleAll"
+                        style="@style/tugleBoot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:checked="@={viewModel.isAll}"
+                        android:onClick="@{(v) -> viewModel.enabledAll()}"
+                        android:textOff="@string/all"
+                        android:textOn="@string/all"
+                        app:layout_constraintEnd_toStartOf="@+id/toggleBoosters"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/eRuns" />
 
-            <TextView
-                android:id="@+id/materialsell"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/sell_isk"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialPrice" />
+                    <ToggleButton
+                        android:id="@+id/toggleBoosters"
+                        style="@style/tugleBoot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:checked="@={viewModel.isBoosters}"
+                        android:onClick="@{(v) -> viewModel.enabledBoosters()}"
+                        android:textOff="@string/boosters"
+                        android:textOn="@string/boosters"
+                        app:layout_constraintEnd_toStartOf="@+id/toggleFullerite"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/toggleAll"
+                        app:layout_constraintTop_toBottomOf="@+id/eRuns" />
 
-            <TextView
-                android:id="@+id/materialVol"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/volume_of_material"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialBuy" />
+                    <ToggleButton
+                        android:id="@+id/toggleFullerite"
+                        style="@style/tugleBoot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:checked="@={viewModel.isFullerites}"
+                        android:onClick="@{(v) -> viewModel.enabledFullerite()}"
+                        android:textOff="@string/fullerites"
+                        android:textOn="@string/fullerites"
+                        app:layout_constraintEnd_toStartOf="@+id/toggleComposite"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/toggleBoosters"
+                        app:layout_constraintTop_toBottomOf="@+id/eRuns" />
 
-            <TextView
-                android:id="@+id/eMaterialVol"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@={viewModel.materialVol}"
-                app:layout_constraintBottom_toBottomOf="@+id/materialVol"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/materialVol" />
+                    <ToggleButton
+                        android:id="@+id/toggleComposite"
+                        style="@style/tugleBoot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:checked="@={viewModel.isComposite}"
+                        android:onClick="@{(v) -> viewModel.enabledComposite()}"
+                        android:textOff="@string/composite"
+                        android:textOn="@string/composite"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/toggleFullerite"
+                        app:layout_constraintTop_toBottomOf="@+id/eRuns" />
 
-            <TextView
-                android:id="@+id/materialPrice"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/cost_of_material"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lreactionCost" />
 
-            <ImageView
-                android:id="@+id/productImage"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reactionName"
-                app:url="@{viewModel.productUrl}" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/lvolume"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/volume_m3"
-                app:layout_constraintStart_toEndOf="@+id/productImage"
-                app:layout_constraintTop_toTopOf="@+id/productImage" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/productList"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:adapter="@{viewModel.adapter}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
-            <TextView
-                android:id="@+id/quantity"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/quantity_unit"
-                app:layout_constraintBottom_toBottomOf="@+id/productImage"
-                app:layout_constraintStart_toEndOf="@+id/productImage"
-                app:layout_constraintTop_toBottomOf="@+id/lvolume" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="@{viewModel.progressBar}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/lsellPrice"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/sell_isk"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productImage" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/border_green_cor0111"
+                    android:translationY="-2dp"
+                    android:visibility="@{viewModel.isVisableInformation}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/reactionInformation">
 
-            <TextView
-                android:id="@+id/lbuyPrice"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/buy_isk"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lsellPrice" />
+                    <TextView
+                        android:id="@+id/reactionTime"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/reaction_time"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lbuyPrice" />
 
-            <TextView
-                android:id="@+id/productVol"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@={viewModel.productVolume}"
-                app:layout_constraintBottom_toBottomOf="@+id/lvolume"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/lvolume" />
+                    <TextView
+                        android:id="@+id/eReactionTime"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@={viewModel.reactionTime}"
+                        app:layout_constraintBottom_toBottomOf="@+id/reactionTime"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/reactionTime" />
 
-            <TextView
-                android:id="@+id/lproductQuantity"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@={viewModel.productQuantity}"
-                app:layout_constraintBottom_toBottomOf="@+id/quantity"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/quantity" />
+                    <TextView
+                        android:id="@+id/eMaterialBuy"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@={viewModel.materialBuy}"
+                        app:layout_constraintBottom_toBottomOf="@+id/materialBuy"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/materialBuy" />
 
-            <TextView
-                android:id="@+id/productSell"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@={viewModel.productSell}"
-                app:layout_constraintBottom_toBottomOf="@+id/lsellPrice"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/lsellPrice" />
+                    <TextView
+                        android:id="@+id/eMaterialSell"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@={viewModel.materialSell}"
+                        app:layout_constraintBottom_toBottomOf="@+id/materialsell"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/materialsell" />
 
-            <TextView
-                android:id="@+id/productBuy"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@={viewModel.productBuy}"
-                app:layout_constraintBottom_toBottomOf="@+id/lbuyPrice"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/lbuyPrice" />
+                    <TextView
+                        android:id="@+id/materialBuy"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/buy_isk"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialsell" />
 
-            <TextView
-                android:id="@+id/reactionName"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="@={viewModel.productName}"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/materialsell"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/sell_isk"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialPrice" />
 
-            <TextView
-                android:id="@+id/lreactionCost"
-                style="@style/naormalTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/reaction_cost_isk"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reactionTime" />
+                    <TextView
+                        android:id="@+id/materialVol"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/volume_of_material"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/materialBuy" />
 
-            <TextView
-                android:id="@+id/reactionCost"
-                style="@style/naormalTextView"
-                android:text="@={viewModel.reactionCost}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/lreactionCost"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/lreactionCost" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/eMaterialVol"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@={viewModel.materialVol}"
+                        app:layout_constraintBottom_toBottomOf="@+id/materialVol"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/materialVol" />
 
-        <CheckBox
-            android:id="@+id/reactionInformation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/border_green_corrner1100_padding"
-            android:button="@drawable/reaction_info"
-            android:onClick="@{(v)-> viewModel.showReactionInfo()}"
-            android:padding="6dp"
-            android:text="@string/reaction_information"
-            style="@style/naormalTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                    <TextView
+                        android:id="@+id/materialPrice"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/cost_of_material"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lreactionCost" />
 
-        <CheckBox
-            android:id="@+id/isFullChain"
-            style="@style/naormalTextView"
-            android:checked="@={viewModel.isFullChain}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text=" full chain"
-            app:layout_constraintStart_toEndOf="@+id/reactionInformation"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                    <ImageView
+                        android:id="@+id/productImage"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/reactionName"
+                        app:url="@{viewModel.productUrl}" />
+
+                    <TextView
+                        android:id="@+id/lvolume"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/volume_m3"
+                        app:layout_constraintStart_toEndOf="@+id/productImage"
+                        app:layout_constraintTop_toTopOf="@+id/productImage" />
+
+                    <TextView
+                        android:id="@+id/quantity"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/quantity_unit"
+                        app:layout_constraintBottom_toBottomOf="@+id/productImage"
+                        app:layout_constraintStart_toEndOf="@+id/productImage"
+                        app:layout_constraintTop_toBottomOf="@+id/lvolume" />
+
+                    <TextView
+                        android:id="@+id/lsellPrice"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/sell_isk"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/productImage" />
+
+                    <TextView
+                        android:id="@+id/lbuyPrice"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/buy_isk"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lsellPrice" />
+
+                    <TextView
+                        android:id="@+id/productVol"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@={viewModel.productVolume}"
+                        app:layout_constraintBottom_toBottomOf="@+id/lvolume"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/lvolume" />
+
+                    <TextView
+                        android:id="@+id/lproductQuantity"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@={viewModel.productQuantity}"
+                        app:layout_constraintBottom_toBottomOf="@+id/quantity"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/quantity" />
+
+                    <TextView
+                        android:id="@+id/productSell"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@={viewModel.productSell}"
+                        app:layout_constraintBottom_toBottomOf="@+id/lsellPrice"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/lsellPrice" />
+
+                    <TextView
+                        android:id="@+id/productBuy"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@={viewModel.productBuy}"
+                        app:layout_constraintBottom_toBottomOf="@+id/lbuyPrice"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/lbuyPrice" />
+
+                    <TextView
+                        android:id="@+id/reactionName"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="@={viewModel.productName}"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/lreactionCost"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/reaction_cost_isk"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/reactionTime" />
+
+                    <TextView
+                        android:id="@+id/reactionCost"
+                        style="@style/naormalTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:text="@={viewModel.reactionCost}"
+                        app:layout_constraintBottom_toBottomOf="@+id/lreactionCost"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/lreactionCost" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <CheckBox
+                    android:id="@+id/reactionInformation"
+                    style="@style/naormalTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/border_green_corrner1100_padding"
+                    android:button="@drawable/reaction_info"
+                    android:onClick="@{(v)-> viewModel.showReactionInfo()}"
+                    android:padding="6dp"
+                    android:text="@string/reaction_information"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+                <CheckBox
+                    android:id="@+id/isFullChain"
+                    style="@style/naormalTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:checked="@={viewModel.isFullChain}"
+                    android:text=" full chain"
+                    app:layout_constraintStart_toEndOf="@+id/reactionInformation"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

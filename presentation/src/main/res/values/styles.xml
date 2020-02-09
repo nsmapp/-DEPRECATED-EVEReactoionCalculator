@@ -34,4 +34,8 @@
         <item name="android:colorForeground">@color/colorControlNormal</item>
     </style>
 
+    <style name="tugleBoot" parent="android:Widget">
+        <item name="android:background">@drawable/toggle_background</item>
+    </style>
+
 </resources>
